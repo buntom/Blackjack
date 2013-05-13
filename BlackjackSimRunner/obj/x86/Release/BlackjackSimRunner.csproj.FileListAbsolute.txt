@@ -1,0 +1,11 @@
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\BlackjackSimRunner.exe.config
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\sampleConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\BlackjackSimRunner.exe
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\BlackjackSimRunner.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\BlackjackSim.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Diagnostics.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\BlackjackSim.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Diagnostics.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\obj\x86\Release\ResolveAssemblyReference.cache
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\obj\x86\Release\BlackjackSimRunner.exe
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\obj\x86\Release\BlackjackSimRunner.pdb

@@ -1,0 +1,7 @@
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\bin\Release\BlackjackSim.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\bin\Release\BlackjackSim.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\bin\Release\Diagnostics.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\bin\Release\Diagnostics.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\obj\Release\ResolveAssemblyReference.cache
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\obj\Release\BlackjackSim.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\obj\Release\BlackjackSim.pdb
