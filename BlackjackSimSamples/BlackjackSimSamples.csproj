@@ -48,6 +48,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulation\CardShoeSample.cs" />
+    <Compile Include="Strategies\Basic\PairDecisionTableConfigurationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackjackSim\BlackjackSim.csproj">

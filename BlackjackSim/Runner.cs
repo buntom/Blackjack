@@ -21,7 +21,7 @@ namespace BlackjackSim
 
         public void Run()
         {
-            var simulation = new Simulation.Simulation(Configuration);
+            var simulation = new Simulation.Simulator(Configuration);
             PlayHandResults = simulation.Run();
 
             var outFilePath = Configuration.SimulationParameters.OutFilePath;

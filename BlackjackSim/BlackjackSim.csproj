@@ -44,7 +44,15 @@
     <Compile Include="Configurations\CountSystemBit.cs" />
     <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Configurations\GameRules.cs" />
+    <Compile Include="Configurations\Strategies\Basic\DecisionTableBase.cs" />
+    <Compile Include="Configurations\Strategies\Basic\HardDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Basic\HardDecisionTableConfiguration.cs" />
+    <Compile Include="Configurations\Strategies\Basic\PairDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Basic\PairDecisionTableConfiguration.cs" />
     <Compile Include="Configurations\SimulationParameters.cs" />
+    <Compile Include="Configurations\Strategies\Basic\SoftDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Basic\SoftDecisionTableConfiguration.cs" />
+    <Compile Include="Configurations\Strategies\Support.cs" />
     <Compile Include="Configurations\StrategyType.cs" />
     <Compile Include="Configurations\TrueCountBet.cs" />
     <Compile Include="External\LogCallbackSupport.cs" />
@@ -57,8 +65,8 @@
     <Compile Include="Simulation\Count.cs" />
     <Compile Include="Simulation\PlayHandOutcome.cs" />
     <Compile Include="Simulation\BetHandResult.cs" />
-    <Compile Include="Simulation\Simulation.cs" />
-    <Compile Include="Strategies\BasicStrategy.cs" />
+    <Compile Include="Simulation\Simulator.cs" />
+    <Compile Include="Strategies\Basic\BasicStrategy.cs" />
     <Compile Include="Strategies\Permits.cs" />
     <Compile Include="Strategies\IStrategy.cs" />
     <Compile Include="Strategies\StrategyDecisionType.cs" />

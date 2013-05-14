@@ -57,7 +57,7 @@ namespace BlackjackSim.Simulation
         public void Hit(CardShoe shoe)
         {
             List<int> hitCards = shoe.DealCard(1);
-            Cards.AddRange(hitCards);            
+            Cards.AddRange(hitCards);
         }
 
         public int ValueHard()
@@ -77,7 +77,7 @@ namespace BlackjackSim.Simulation
         }
 
         public int Value()
-        {            
+        {
             int value = ValueHard();
 
             bool containsAce = Cards.Any(card => card == 1);
@@ -93,7 +93,7 @@ namespace BlackjackSim.Simulation
         {
             if (index > (Cards.Count - 1))
             {
-                return 0;                
+                return 0;
             }
 
             int value = Math.Min(Cards[index], 10);
@@ -107,8 +107,8 @@ namespace BlackjackSim.Simulation
 
         public bool IsBlackjack()
         {
-            bool isBlackjack = false;            
-            if ((CardsHeldCount() == 2) && (Value() == 21))
+            bool isBlackjack = false;
+            if (CardsHeldCount() == 2 && Value() == 21)
             {
                 isBlackjack = true;
             }
@@ -157,7 +157,7 @@ namespace BlackjackSim.Simulation
                 return null;
             }
 
-            var splitHands = new List<Hand>();            
+            var splitHands = new List<Hand>();
             var hand = new Hand(Cards[0], BetSize);
             hand.Hit(shoe);
             splitHands.Add(hand);

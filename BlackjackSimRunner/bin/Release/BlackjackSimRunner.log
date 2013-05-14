@@ -1,0 +1,100 @@
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml successful.
+
+Deserialization from file Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml failed.
+
+Error message: BlackjackSim.Configurations.Strategies.Basic.SoftDecisionTableConfiguration is inaccessible due to its protection level. Only public types can be processed.
+
+Source: System.Xml
+
+Stack trace:    at System.Xml.Serialization.TypeDesc.CheckSupported()
+   at System.Xml.Serialization.TypeScope.GetTypeDesc(Type type, MemberInfo source, Boolean directReference, Boolean throwOnError)
+   at System.Xml.Serialization.ModelScope.GetTypeModel(Type type, Boolean directReference)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at BlackjackSim.Serialization.XmlUtils.DeserializeFromFile[T](String fileName) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Serialization\XmlUtils.cs:line 26
+
+An exception occured in BlackjackSimRunner.
+
+Error message: BlackjackSim.Configurations.Strategies.Basic.SoftDecisionTableConfiguration is inaccessible due to its protection level. Only public types can be processed.
+
+Source: System.Xml
+
+Stack trace:    at System.Xml.Serialization.TypeDesc.CheckSupported()
+   at System.Xml.Serialization.TypeScope.GetTypeDesc(Type type, MemberInfo source, Boolean directReference, Boolean throwOnError)
+   at System.Xml.Serialization.ModelScope.GetTypeModel(Type type, Boolean directReference)
+   at System.Xml.Serialization.XmlReflectionImporter.ImportTypeMapping(Type type, XmlRootAttribute root, String defaultNamespace)
+   at System.Xml.Serialization.XmlSerializer..ctor(Type type, String defaultNamespace)
+   at BlackjackSim.Serialization.XmlUtils.DeserializeFromFile[T](String fileName) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Serialization\XmlUtils.cs:line 39
+   at BlackjackSim.Strategies.Basic.BasicStrategy..ctor(Configuration configuration) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Strategies\Basic\BasicStrategy.cs:line 25
+   at BlackjackSim.Simulation.Simulator..ctor(Configuration configuration) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 35
+   at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 24
+   at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\HardDecisionTableConfiguration.xml successful.
+
+An exception occured in BlackjackSimRunner.
+
+Error message: Index was outside the bounds of the array.
+
+Source: BlackjackSim
+
+Stack trace:    at BlackjackSim.Strategies.Basic.BasicStrategy.GetDecision(Hand handPlayer, Hand handDealer, Int32 trueCount, Permits permits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Strategies\Basic\BasicStrategy.cs:line 235
+   at BlackjackSim.Simulation.Simulator.PlayHand(Hand handPlayer, Hand handDealer, Double betSize, CardShoe shoe, Int32& numberOfSplits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 197
+   at BlackjackSim.Simulation.Simulator.BetHand(Double betSize, CardShoe shoe) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 150
+   at BlackjackSim.Simulation.Simulator.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 62
+   at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 25
+   at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\HardDecisionTableConfiguration.xml successful.
+
+An exception occured in BlackjackSimRunner.
+
+Error message: Index was outside the bounds of the array.
+
+Source: BlackjackSim
+
+Stack trace:    at BlackjackSim.Strategies.Basic.BasicStrategy.GetDecision(Hand handPlayer, Hand handDealer, Int32 trueCount, Permits permits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Strategies\Basic\BasicStrategy.cs:line 235
+   at BlackjackSim.Simulation.Simulator.PlayHand(Hand handPlayer, Hand handDealer, Double betSize, CardShoe shoe, Int32& numberOfSplits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 197
+   at BlackjackSim.Simulation.Simulator.BetHand(Double betSize, CardShoe shoe) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 150
+   at BlackjackSim.Simulation.Simulator.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 62
+   at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 25
+   at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\HardDecisionTableConfiguration.xml successful.
+
+An exception occured in BlackjackSimRunner.
+
+Error message: Index was outside the bounds of the array.
+
+Source: BlackjackSim
+
+Stack trace:    at BlackjackSim.Strategies.Basic.BasicStrategy.GetDecision(Hand handPlayer, Hand handDealer, Int32 trueCount, Permits permits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Strategies\Basic\BasicStrategy.cs:line 235
+   at BlackjackSim.Simulation.Simulator.PlayHand(Hand handPlayer, Hand handDealer, Double betSize, CardShoe shoe, Int32& numberOfSplits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 197
+   at BlackjackSim.Simulation.Simulator.BetHand(Double betSize, CardShoe shoe) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 150
+   at BlackjackSim.Simulation.Simulator.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 62
+   at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 25
+   at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\HardDecisionTableConfiguration.xml successful.
+
+An exception occured in BlackjackSimRunner.
+
+Error message: Index was outside the bounds of the array.
+
+Source: BlackjackSim
+
+Stack trace:    at BlackjackSim.Strategies.Basic.BasicStrategy.GetDecision(Hand handPlayer, Hand handDealer, Int32 trueCount, Permits permits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Strategies\Basic\BasicStrategy.cs:line 324
+   at BlackjackSim.Simulation.Simulator.PlayHand(Hand handPlayer, Hand handDealer, Double betSize, CardShoe shoe, Int32& numberOfSplits) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 197
+   at BlackjackSim.Simulation.Simulator.BetHand(Double betSize, CardShoe shoe) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 150
+   at BlackjackSim.Simulation.Simulator.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 62
+   at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 25
+   at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24

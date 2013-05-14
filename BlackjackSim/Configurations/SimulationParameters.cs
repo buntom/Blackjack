@@ -25,6 +25,7 @@ namespace BlackjackSim.Configurations
         public double RiskAversionCoefficient { get; set; }
         public StrategyType StrategyType { get; set; }
         public string OutFilePath { get; set; }
+        public string StrategyConfigurationPath { get; set; }
 
         [XmlIgnore]
         private List<CountSystemBit> countSystem;

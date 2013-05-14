@@ -22,6 +22,7 @@
     <InitialWealth>10000</InitialWealth>
     <RiskAversionCoefficient>2</RiskAversionCoefficient>
     <StrategyType>BASIC</StrategyType>
-    <OutFilePath>B:\bjSimData.csv</OutFilePath>
+    <OutFilePath>B:\bjSimData_old.csv</OutFilePath>
+    <StrategyConfigurationPath>Configuration\Strategies\Basic\</StrategyConfigurationPath>
   </SimulationParameters>
 </Configuration>

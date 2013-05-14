@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PairDecisionTableConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--  
+      Columns -> Dealer shows:          2 3 4 5 6 7 8 9 T A
+      Rows    -> Player has a pair of:  2 3 4 5 6 7 8 9 T A
+      
+      Split (Pair) decisions:
+        0 = do not split
+        1 = split (if allowed then)
+        2 = surrender, if NA, then split
+-->
+  
+  <PairDecisionTables>
+    <Table DealerStandsSoft17="true" DoubleAfterSplit="true">
+      <Matrix>
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        0, 0, 0, 1, 1, 0, 0, 0, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+        1, 1, 1, 1, 1, 0, 1, 1, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+      </Matrix>
+    </Table>
+
+    <Table DealerStandsSoft17="true" DoubleAfterSplit="false">
+      <Matrix>
+        0, 0, 1, 1, 1, 1, 0, 0, 0, 0;
+        0, 0, 1, 1, 1, 1, 0, 0, 0, 0;
+        0, 0, 0, 1, 0, 0, 0, 0, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+        1, 1, 1, 1, 1, 0, 1, 1, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+      </Matrix>
+    </Table>
+
+    <Table DealerStandsSoft17="false" DoubleAfterSplit="true">
+      <Matrix>
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        0, 0, 0, 1, 1, 0, 0, 0, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 2;
+        1, 1, 1, 1, 1, 0, 1, 1, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+      </Matrix>
+    </Table>
+
+    <Table DealerStandsSoft17="false" DoubleAfterSplit="false">
+      <Matrix>
+        0, 0, 1, 1, 1, 1, 0, 0, 0, 0;
+        0, 0, 1, 1, 1, 1, 0, 0, 0, 0;
+        0, 0, 0, 1, 0, 0, 0, 0, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 2;
+        1, 1, 1, 1, 1, 0, 1, 1, 0, 0;
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+      </Matrix>
+    </Table>
+  </PairDecisionTables>
+</PairDecisionTableConfiguration>

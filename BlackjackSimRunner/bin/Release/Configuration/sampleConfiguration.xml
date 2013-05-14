@@ -23,5 +23,6 @@
     <RiskAversionCoefficient>2</RiskAversionCoefficient>
     <StrategyType>BASIC</StrategyType>
     <OutFilePath>B:\bjSimData.csv</OutFilePath>
+    <StrategyConfigurationPath>Configuration\Strategies\Basic\</StrategyConfigurationPath>
   </SimulationParameters>
 </Configuration>

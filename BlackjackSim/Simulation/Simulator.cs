@@ -6,17 +6,18 @@ using BlackjackSim.Configurations;
 using BlackjackSim.Strategies;
 using Diagnostics.Logging;
 using System.Diagnostics;
+using BlackjackSim.Strategies.Basic;
 
 namespace BlackjackSim.Simulation
 {
-    public class Simulation
+    public class Simulator
     {
         public readonly Configuration Configuration;
         public IStrategy Strategy;
         public readonly List<TrueCountBet> SortedBetSizeTrueCountScale;
         public Random Random;
 
-        public Simulation(Configuration configuration)
+        public Simulator(Configuration configuration)
         {
             var simulationParameters = configuration.SimulationParameters;
 

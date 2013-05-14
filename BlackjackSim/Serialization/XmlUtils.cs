@@ -17,6 +17,11 @@ namespace BlackjackSim.Serialization
         {
             try
             {
+                if (!File.Exists(fileName))
+                {
+                    throw new FileNotFoundException(string.Format("File not found: {0}", fileName));
+                }
+
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
                 var xs = new XmlSerializer(typeof(T));
 

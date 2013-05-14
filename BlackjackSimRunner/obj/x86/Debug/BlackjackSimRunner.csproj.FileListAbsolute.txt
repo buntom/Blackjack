@@ -1,4 +1,3 @@
-B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\sampleConfiguration.xml
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\BlackjackSimRunner.exe.config
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\BlackjackSimRunner.exe
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\BlackjackSimRunner.pdb
@@ -9,3 +8,7 @@ B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\Diagn
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\obj\x86\Debug\ResolveAssemblyReference.cache
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\obj\x86\Debug\BlackjackSimRunner.exe
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\obj\x86\Debug\BlackjackSimRunner.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\Configuration\Strategies\Basic\HardDecisionTableConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Debug\Configuration\sampleConfiguration.xml
