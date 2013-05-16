@@ -43,8 +43,12 @@
     <Compile Include="Configurations\BetSizeType.cs" />
     <Compile Include="Configurations\CountSystemBit.cs" />
     <Compile Include="Configurations\Configuration.cs" />
+    <Compile Include="Configurations\Strategies\Basic\DecisionTypePair.cs" />
+    <Compile Include="Configurations\Strategies\Basic\DecisionTypePairHelper.cs" />
+    <Compile Include="Configurations\Strategies\Basic\DecisionType.cs" />
+    <Compile Include="Configurations\Strategies\Basic\DecisionTypeHelper.cs" />
     <Compile Include="Configurations\GameRules.cs" />
-    <Compile Include="Configurations\Strategies\Basic\DecisionTableBase.cs" />
+    <Compile Include="Configurations\Strategies\DecisionTableBase.cs" />
     <Compile Include="Configurations\Strategies\Basic\HardDecisionTable.cs" />
     <Compile Include="Configurations\Strategies\Basic\HardDecisionTableConfiguration.cs" />
     <Compile Include="Configurations\Strategies\Basic\PairDecisionTable.cs" />
@@ -52,6 +56,18 @@
     <Compile Include="Configurations\SimulationParameters.cs" />
     <Compile Include="Configurations\Strategies\Basic\SoftDecisionTable.cs" />
     <Compile Include="Configurations\Strategies\Basic\SoftDecisionTableConfiguration.cs" />
+    <Compile Include="Configurations\Strategies\Index\DecisionTypeDouble.cs" />
+    <Compile Include="Configurations\Strategies\Index\DecisionTypePair.cs" />
+    <Compile Include="Configurations\Strategies\Index\DecisionTypeBase.cs" />
+    <Compile Include="Configurations\Strategies\Index\DecisionTypeStand.cs" />
+    <Compile Include="Configurations\Strategies\Index\DoubleDecisionTableConfiguration.cs" />
+    <Compile Include="Configurations\Strategies\Index\HardDoubleDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Index\HardStandDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Index\PairDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Index\PairDecisionTableConfiguration.cs" />
+    <Compile Include="Configurations\Strategies\Index\SoftDoubleDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Index\SoftStandDecisionTable.cs" />
+    <Compile Include="Configurations\Strategies\Index\StandDecisionTableConfiguration.cs" />
     <Compile Include="Configurations\Strategies\Support.cs" />
     <Compile Include="Configurations\StrategyType.cs" />
     <Compile Include="Configurations\TrueCountBet.cs" />
@@ -67,6 +83,7 @@
     <Compile Include="Simulation\BetHandResult.cs" />
     <Compile Include="Simulation\Simulator.cs" />
     <Compile Include="Strategies\Basic\BasicStrategy.cs" />
+    <Compile Include="Strategies\Index\IndexStrategy.cs" />
     <Compile Include="Strategies\Permits.cs" />
     <Compile Include="Strategies\IStrategy.cs" />
     <Compile Include="Strategies\StrategyDecisionType.cs" />
@@ -77,6 +94,7 @@
       <Name>Diagnostics</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -98,3 +98,43 @@ Stack trace:    at BlackjackSim.Strategies.Basic.BasicStrategy.GetDecision(Hand 
    at BlackjackSim.Simulation.Simulator.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 62
    at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 25
    at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Basic\HardDecisionTableConfiguration.xml successful.
+Blackjack simulation: Finished 5% in 00:00:00.0183511.
+Blackjack simulation: Finished 10% in 00:00:00.0233075.
+Blackjack simulation: Finished 15% in 00:00:00.0275430.
+Blackjack simulation: Finished 20% in 00:00:00.0332331.
+Blackjack simulation: Finished 25% in 00:00:00.0378345.
+Blackjack simulation: Finished 30% in 00:00:00.0417434.
+Blackjack simulation: Finished 35% in 00:00:00.0462782.
+Blackjack simulation: Finished 40% in 00:00:00.0503881.
+Blackjack simulation: Finished 45% in 00:00:00.0549343.
+Blackjack simulation: Finished 50% in 00:00:00.0592698.
+Blackjack simulation: Finished 55% in 00:00:00.0638481.
+Blackjack simulation: Finished 60% in 00:00:00.0683276.
+Blackjack simulation: Finished 65% in 00:00:00.0730753.
+Blackjack simulation: Finished 70% in 00:00:00.0777074.
+Blackjack simulation: Finished 75% in 00:00:00.0823632.
+Blackjack simulation: Finished 80% in 00:00:00.0864677.
+Blackjack simulation: Finished 85% in 00:00:00.0905845.
+Blackjack simulation: Finished 90% in 00:00:00.0960898.
+Blackjack simulation: Finished 95% in 00:00:00.1004838.
+Blackjack simulation: FINISHED in 00:00:00.1068165.
+Deserialization from file Configuration\sampleConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Index\PairDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Index\DoubleDecisionTableConfiguration.xml successful.
+Deserialization from file Configuration\Strategies\Index\StandDecisionTableConfiguration.xml successful.
+
+An exception occured in BlackjackSimRunner.
+
+Error message: Sequence contains no elements
+
+Source: System.Core
+
+Stack trace:    at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at BlackjackSim.Strategies.Index.IndexStrategy..ctor(Configuration configuration) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Strategies\Index\IndexStrategy.cs:line 28
+   at BlackjackSim.Simulation.Simulator..ctor(Configuration configuration) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Simulation\Simulator.cs:line 40
+   at BlackjackSim.Runner.Run() in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSim\Runner.cs:line 24
+   at BlackjackSimRunner.Program.Main(String[] args) in B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\Program.cs:line 24

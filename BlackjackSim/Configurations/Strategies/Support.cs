@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Diagnostics.Logging;
 
 namespace BlackjackSim.Configurations.Strategies
 {
     public class Support
     {
-        public static int[,] MatrixStringToArray(string stringMatrix)
+        public static T[,] MatrixStringToArray<T>(string stringMatrix, Func<string, T> convertor)
         {
             const char rowSeparator = ';';
             const char columnSeparator = ',';
@@ -23,7 +24,7 @@ namespace BlackjackSim.Configurations.Strategies
 
             int columnCount = lines.First().Split(columnSeparator).Length;
 
-            var matrixArray = new int[rowCount, columnCount];
+            var matrixArray = new T[rowCount, columnCount];
 
             for (int i = 0; i < rowCount; i++)
             {
@@ -44,15 +45,14 @@ namespace BlackjackSim.Configurations.Strategies
 
                 for (int j = 0; j < items.Length; j++)
                 {
-                    int value;
-                    bool success = int.TryParse(items[j].Trim(), out value);
-
-                    if (success)
+                    try
                     {
-                        matrixArray[i, j] = value;
+                        matrixArray[i, j] = convertor(items[j]);
                     }
-                    else
+                    catch (ArgumentException exception)
                     {
+                        TraceWrapper.LogException(exception);
+
                         var errorMessage = string.Format(
                             "Failed to parse element of matrix:  row: {0}, column: {1}, given value: {2}",
                             i, j, items[j]);
@@ -65,7 +65,7 @@ namespace BlackjackSim.Configurations.Strategies
             return matrixArray;
         }
 
-        public static void VerifyDimensions(int[,] matrix, int expectedRows, int expectedColumns, string matrixDescription)
+        public static void VerifyDimensions<T>(T[,] matrix, int expectedRows, int expectedColumns, string matrixDescription)
         {
             int rows = matrix.GetLength(0);
             int columns = matrix.GetLength(1);

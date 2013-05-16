@@ -6,10 +6,10 @@ using System.Xml.Serialization;
 
 namespace BlackjackSim.Configurations.Strategies.Basic
 {
-    public class SoftDecisionTable : DecisionTableBase
+    public class SoftDecisionTable : DecisionTableBase<DecisionType>
     {
         public SoftDecisionTable()
-            : base(9, 10, "Soft Decision Matrix for Basic Strategy")
+            : base(9, 10, "Soft Decision Matrix for Basic Strategy", DecisionTypeHelper.ConvertFromString)
         {
         }
     }

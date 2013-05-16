@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PairDecisionTableConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--  
+      Columns -> Dealer shows:          2 3 4 5 6 7 8 9 T A
+      Rows    -> Player has a pair of:  2 3 4 5 6 7 8 9 T A
+      
+      Possible entries:
+        (index) number  -> split iff trueCount >= indexNumber
+        *number         -> split iff trueCount < indexNumber
+        A               -> split (regardless of true count)
+        N               -> do not split (regardless of true count)
+-->
+
+  <PairDecisionTables>
+    <Table DealerStandsSoft17="true" DoubleAfterSplit="true">
+      <Matrix>
+        -3,   -5,   -7,   -9,   A,    A,    5,    N,    N,    N;
+        0,    -4,   -7,   -9,   A,    A,    4,    N,    N,    N;
+        N,    6,    1,    -1,   -4,   N,    N,    N,    N,    N;
+        N,    N,    N,    N,    N,    N,    N,    N,    N,    N;
+        -1,   -4,   -6,   -8,   -10,  N,    N,    N,    N,    N;
+        -9,   A,    A,    A,    A,    A,    5,    N,    N,    N;
+        A,    A,    A,    A,    A,    A,    A,    A,   *8,    A;
+       -2,   -3,   -5,   -6,   -6,    3,   -8,   -9,    N,    3;
+        N,    8,    6,    5,    4,    N,    N,    N,    N,    N;
+        A,    A,    A,    A,    A,   -9,   -8,   -7,   -8,   -3
+      </Matrix>
+    </Table>
+
+    <Table DealerStandsSoft17="true" DoubleAfterSplit="false">
+      <Matrix>
+        7,    3,    0,   -4,    -9,    A,   N,    N,    N,    N;
+        8,    3,    0,   -2,    -9,    A,   N,    N,    N,    N;
+        N,    N,    N,    N,    N,    N,    N,    N,    N,    N;
+        N,    N,    N,    N,    N,    N,    N,    N,    N,    N;
+        2,    0,   -3,   -5,   -7,    N,    N,    N,    N,    N;
+        -9,   A,    A,    A,    A,    A,    N,    N,    N,    N;
+        A,    A,    A,    A,    A,    A,    A,    A,   *6,    A;
+        0,   -2,   -3,   -4,   -4,    6,   -8,   -9,    N,    3;
+        N,    8,    6,    5,    4,    N,    N,    N,    N,    N;
+        A,    A,    A,    A,    A,    -9,   -8,   -7,  -8,   -3
+      </Matrix>
+    </Table>
+
+    <Table DealerStandsSoft17="false" DoubleAfterSplit="true">
+      <Matrix>
+        -2,   -5,   -7,   -9,   A,    A,    5,    N,    N,    N;
+        0,    -3,   -7,   -9,   A,    A,    4,    N,    N,    N;
+        N,    6,    1,    -1,   -6,   N,    N,    N,    N,    N;
+        N,    N,    N,    N,    N,    N,    N,    N,    N,    N;
+       -2,   -4,   -6,   -8,  -10,    N,    N,    N,    N,    N;
+       -10,   A,    A,    A,    A,    A,    5,    N,    N,    N;
+        A,    A,    A,    A,    A,    A,    A,    A,   *8,   -1;
+       -2,   -3,   -5,   -6,   -6,    3,   -8,   -9,    N,    3;
+        N,    8,    6,    5,    4,    N,    N,    N,    N,    N;
+        A,    A,    A,    A,    A,   -9,   -8,   -7,   -8,   -3
+      </Matrix>
+    </Table>
+
+    <Table DealerStandsSoft17="false" DoubleAfterSplit="false">
+      <Matrix>
+        7,    3,    0,   -4,    -7,    A,   N,    N,    N,    N;
+        8,    3,    0,   -2,    -5,    A,   N,    N,    N,    N;
+        N,    N,    N,    N,    N,    N,    N,    N,    N,    N;
+        N,    N,    N,    N,    N,    N,    N,    N,    N,    N;
+        1,   -1,   -3,   -5,   -7,    N,    N,    N,    N,    N;
+        -9, -10,    A,    A,    A,    A,    N,    N,    N,    N;
+        A,    A,    A,    A,    A,    A,    A,    A,   *6,   -1;
+       -1,   -2,   -3,   -4,   -6,    6,   -8,   -9,    N,    2;
+        N,    8,    6,    5,    4,    N,    N,    N,    N,    N;
+        A,    A,    A,    A,    A,    -9,   -8,   -7,  -8,   -4
+      </Matrix>
+    </Table>
+  </PairDecisionTables>
+</PairDecisionTableConfiguration>

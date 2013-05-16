@@ -12,9 +12,9 @@ namespace BlackjackSim.Strategies.Basic
 {
     public class BasicStrategy : IStrategy
     {
-        public int[,] PairDecisionTable { get; private set; }
-        public int[,] SoftDecisionTable { get; private set; }
-        public int[,] HardDecisionTable { get; private set; }
+        public DecisionTypePair[,] PairDecisionTable { get; private set; }
+        public DecisionType[,] SoftDecisionTable { get; private set; }
+        public DecisionType[,] HardDecisionTable { get; private set; }
 
         public BasicStrategy(Configuration configuration)
         {
@@ -51,100 +51,48 @@ namespace BlackjackSim.Strategies.Basic
             return XmlUtils.DeserializeFromFile<T>(path);
         }
 
-        
-
         public bool GetInsuranceDecision(Hand handPlayer, int trueCount)
         {
             return false; // never take insurance according to the Basic strategy
         }
 
-        public StrategyDecisionType GetDecision(Hand handPlayer, Hand handDealer, int trueCount, Permits permits)
-        {            
+        public StrategyDecisionType GetDecision(Hand handPlayer, Hand handDealer, int trueCount, Permits permits, Random random)
+        {
+            int playerTotal = handPlayer.Value();
+
+            if (playerTotal >= 21)
             {
-                int upcardDealer = 0;
+                return StrategyDecisionType.STAND;
+            }
 
-                upcardDealer = handDealer.ValueCard(0);
+            int upcardDealer = 0;
+            upcardDealer = handDealer.ValueCard(0);
 
-                int playerTotal = handPlayer.Value();
+            var strategyDecision = StrategyDecisionType.NA;
 
-                if (playerTotal >= 21)
-                {
-                    return StrategyDecisionType.STAND;
-                }
+            if (handPlayer.IsPair())
+            {
+                int cardValue = handPlayer.ValueCard(0);
+                var pairDecision = PairDecisionTable[cardValue - 2, upcardDealer - 2];
+                strategyDecision = DecisionTypePairHelper.ConvertToStrategyDecision(pairDecision, permits);
+            }
+            if (strategyDecision != StrategyDecisionType.NA)
+            {
+                return strategyDecision;
+            }
 
-                int split = 0;
-                if (handPlayer.IsPair())
-                {
-                    int cardValue = handPlayer.ValueCard(0);
-                    split = PairDecisionTable[cardValue - 2, upcardDealer - 2];                    
-                }
-                if ((split == 2) && permits.Surrender)
-                {
-                    return StrategyDecisionType.SURRENDER;
-                }
-                else if ((split == 2) && permits.Surrender)
-                {
-                    split = 1;
-                }
-                if ((split == 1) && permits.Split)
-                {
-                    return StrategyDecisionType.SPLIT;
-                }
+            DecisionType decision;
+            if (handPlayer.IsSoft())
+            {
+                decision = SoftDecisionTable[playerTotal - 12, upcardDealer - 2];
+            }
+            else
+            {
+                decision = HardDecisionTable[playerTotal - 2, upcardDealer - 2];
+            }
+            strategyDecision = DecisionTypeHelper.ConvertToStrategyDecision(decision, permits);
 
-                int decision;
-                if (handPlayer.IsSoft())
-                {
-                    decision = SoftDecisionTable[playerTotal - 12, upcardDealer - 2];                    
-                }
-                else
-                {
-                    decision = HardDecisionTable[playerTotal - 2, upcardDealer - 2];                    
-                }
-
-                if (decision == 0)
-                {
-                    return StrategyDecisionType.STAND;
-                }
-                if (decision == 1)
-                {
-                    return StrategyDecisionType.HIT;
-                }
-                if ((decision == 2) && !permits.Double)
-                {
-                    return StrategyDecisionType.HIT;
-                }
-                if ((decision == 2) && permits.Double)
-                {
-                    return StrategyDecisionType.DOUBLE;
-                }
-                if ((decision == 3) && !permits.Double)
-                {
-                    return StrategyDecisionType.STAND;
-                }
-                if ((decision == 3) && permits.Double)
-                {
-                    return StrategyDecisionType.DOUBLE;
-                }
-                if ((decision == 4) && !permits.Surrender)
-                {
-                    return StrategyDecisionType.HIT;
-                }
-                if ((decision == 4) && permits.Surrender)
-                {
-                    return StrategyDecisionType.SURRENDER;
-                }
-                if ((decision == 5) && !permits.Surrender)
-                {
-                    return StrategyDecisionType.STAND;
-                }
-                if ((decision == 5) && permits.Surrender)
-                {
-                    return StrategyDecisionType.SURRENDER;
-                }
-
-                // this should be impossible to reach
-                return StrategyDecisionType.NA;
-            }            
+            return strategyDecision;
         }
     }
 }

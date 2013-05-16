@@ -7,6 +7,7 @@ using BlackjackSim.Strategies;
 using Diagnostics.Logging;
 using System.Diagnostics;
 using BlackjackSim.Strategies.Basic;
+using BlackjackSim.Strategies.Index;
 
 namespace BlackjackSim.Simulation
 {
@@ -36,7 +37,7 @@ namespace BlackjackSim.Simulation
                     break;
 
                 case StrategyType.INDEX:
-                    // TODO
+                    Strategy = new IndexStrategy(configuration);
                     break;
             }
             
@@ -194,7 +195,7 @@ namespace BlackjackSim.Simulation
                 {
                     trueCount = shoe.Count.TrueCount;
                 }
-                StrategyDecisionType decision = Strategy.GetDecision(handPlayer, handDealer, trueCount, permits);
+                StrategyDecisionType decision = Strategy.GetDecision(handPlayer, handDealer, trueCount, permits, Random);
 
                 switch (decision)
                 {

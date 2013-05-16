@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace BlackjackSim.Configurations.Strategies.Basic
+namespace BlackjackSim.Configurations.Strategies
 {
-    public abstract class DecisionTableBase
+    public abstract class DecisionTableBase<T>
     {
         [XmlAttribute]
         public bool DealerStandsSoft17 { get; set; }
@@ -14,17 +14,17 @@ namespace BlackjackSim.Configurations.Strategies.Basic
         public string Matrix { get; set; }
 
         [XmlIgnore]
-        private int[,] matrixArray;
+        private T[,] matrixArray;
 
         [XmlIgnore]
-        public int[,] MatrixAsArray
+        public T[,] MatrixAsArray
         {
             get
             {
                 if (matrixArray == null)
                 {
-                    matrixArray = Support.MatrixStringToArray(Matrix);
-                    Support.VerifyDimensions(matrixArray, ExpectedRows, ExpectedColumns, Description);
+                    matrixArray = Support.MatrixStringToArray<T>(Matrix, Convertor);
+                    Support.VerifyDimensions<T>(matrixArray, ExpectedRows, ExpectedColumns, Description);
                 }
 
                 return matrixArray;
@@ -34,12 +34,14 @@ namespace BlackjackSim.Configurations.Strategies.Basic
         private readonly int ExpectedRows;
         private readonly int ExpectedColumns;
         private readonly string Description;
+        private readonly Func<string, T> Convertor;
 
-        public DecisionTableBase(int expectedRows, int expectedColumns, string description)
+        public DecisionTableBase(int expectedRows, int expectedColumns, string description, Func<string, T> convertor)
         {
             ExpectedRows = expectedRows;
             ExpectedColumns = expectedColumns;
             Description = description;
+            Convertor = convertor;
         }
     }
 }

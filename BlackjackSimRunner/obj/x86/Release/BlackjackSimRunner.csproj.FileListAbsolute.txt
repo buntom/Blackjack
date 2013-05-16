@@ -12,3 +12,6 @@ B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Con
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Configuration\Strategies\Basic\PairDecisionTableConfiguration.xml
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Configuration\Strategies\Basic\SoftDecisionTableConfiguration.xml
 B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Configuration\sampleConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Configuration\Strategies\Index\PairDecisionTableConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Configuration\Strategies\Index\DoubleDecisionTableConfiguration.xml
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimRunner\bin\Release\Configuration\Strategies\Index\StandDecisionTableConfiguration.xml

@@ -7,13 +7,13 @@ using BlackjackSim.Configurations.Strategies;
 
 namespace BlackjackSim.Configurations.Strategies.Basic
 {
-    public class PairDecisionTable : DecisionTableBase
+    public class PairDecisionTable : DecisionTableBase<DecisionTypePair>
     {
         [XmlAttribute]
         public bool DoubleAfterSplit { get; set; }
 
         public PairDecisionTable()
-            : base(10, 10, "Pair Decision Matrix for Basic Strategy")
+            : base(10, 10, "Pair Decision Matrix for Basic Strategy", DecisionTypePairHelper.ConvertFromString)
         {
         }
     }
