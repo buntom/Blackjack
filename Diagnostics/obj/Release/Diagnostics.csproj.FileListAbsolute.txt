@@ -1,5 +1,0 @@
-B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\Diagnostics\bin\Release\Diagnostics.dll
-B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\Diagnostics\bin\Release\Diagnostics.pdb
-B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\Diagnostics\obj\Release\ResolveAssemblyReference.cache
-B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\Diagnostics\obj\Release\Diagnostics.dll
-B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\Diagnostics\obj\Release\Diagnostics.pdb
