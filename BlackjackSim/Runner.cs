@@ -12,7 +12,7 @@ namespace BlackjackSim
     public class Runner
     {        
         public readonly Configuration Configuration;
-        public List<BetHandResult> PlayHandResults { get; private set; }
+        public List<BetHandResult> BetHandResults { get; private set; }
 
         public Runner(string configurationPath)
         {
@@ -22,15 +22,7 @@ namespace BlackjackSim
         public void Run()
         {
             var simulation = new Simulation.Simulator(Configuration);
-            PlayHandResults = simulation.Run();
-
-            var outFilePath = Configuration.SimulationParameters.OutFilePath;
-            PlayHandResults.SaveToFile(outFilePath);
-        }
-
-        public double[,] GetResults()
-        {
-            return PlayHandResults.ConvertToArray();
+            simulation.Run();
         }
     }
 }

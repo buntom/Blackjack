@@ -72,7 +72,10 @@
     <Compile Include="Configurations\StrategyType.cs" />
     <Compile Include="Configurations\TrueCountBet.cs" />
     <Compile Include="External\LogCallbackSupport.cs" />
+    <Compile Include="Results\BetStats.cs" />
     <Compile Include="Results\ResultsUtils.cs" />
+    <Compile Include="Results\Statistics.cs" />
+    <Compile Include="Results\TrueCountBetStatsBit.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="Serialization\XmlUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

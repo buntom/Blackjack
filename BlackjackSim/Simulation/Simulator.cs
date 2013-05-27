@@ -8,6 +8,7 @@ using Diagnostics.Logging;
 using System.Diagnostics;
 using BlackjackSim.Strategies.Basic;
 using BlackjackSim.Strategies.Index;
+using BlackjackSim.Results;
 
 namespace BlackjackSim.Simulation
 {
@@ -44,25 +45,26 @@ namespace BlackjackSim.Simulation
             SortedBetSizeTrueCountScale = simulationParameters.BetSizeTrueCountScale.OrderBy(item => item.TrueCount).ToList();            
         }
 
-        public List<BetHandResult> Run()
+        public void Run()
         {
             int simulationCount = Configuration.SimulationParameters.SimulationCount;
             var shoe = new CardShoe(Configuration, Random);
             double wealth = Configuration.SimulationParameters.InitialWealth;
             double betSize;
-            BetHandResult betHandResult;
-            var betHandResultList = new List<BetHandResult>();
+            BetHandResult betHandResult;            
             int indexFinished = 0;
             double ratioFinished;
 
-            var stopwatch = Stopwatch.StartNew();            
+            var stopwatch = Stopwatch.StartNew();
+            var resultsUtils = new ResultsUtils(Configuration);
 
             for (int i = 0; i < simulationCount; i++)
             {                
                 betSize = GetBetSize(wealth, shoe);                
                 betHandResult = BetHand(betSize, shoe);
 
-                betHandResultList.Add(betHandResult);
+                resultsUtils.DumpToResultsLog(betHandResult);
+                resultsUtils.Statistics.Update(betHandResult);
                 wealth += betHandResult.Payoff;                
 
                 if (shoe.Penetration > Configuration.SimulationParameters.PenetrationThreshold)
@@ -78,10 +80,12 @@ namespace BlackjackSim.Simulation
                         ratioFinished, stopwatch.Elapsed);
                 }
             }
+
+            resultsUtils.CloseResultsLog();
+            resultsUtils.StatisticsToFile();
+
             stopwatch.Stop();
             TraceWrapper.LogInformation("Blackjack simulation: FINISHED in {0}.", stopwatch.Elapsed);
-
-            return betHandResultList;
         }
 
         public double GetBetSize(double wealth, CardShoe shoe)

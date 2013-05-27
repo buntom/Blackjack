@@ -5,49 +5,86 @@ using System.Text;
 using BlackjackSim.Simulation;
 using System.IO;
 using Diagnostics.Logging;
+using BlackjackSim.Configurations;
 
 namespace BlackjackSim.Results
 {
-    public static class ResultsUtils
+    public class ResultsUtils
     {
-        public static void SaveToFile(this List<BetHandResult> playHandResults, string path)
+        public StreamWriter ResultsWriter;
+        public Statistics Statistics;
+        public string OutputFolder;
+
+        public ResultsUtils(Configuration configuration)
+        {
+            var simulationParameters = configuration.SimulationParameters;
+            OutputFolder = simulationParameters.OutputFolderSpecific;
+            Directory.CreateDirectory(OutputFolder);
+            if (simulationParameters.SaveResults)
+            {                
+                ResultsWriter = InitiateResultsLog(OutputFolder);
+            }
+            else
+            {
+                ResultsWriter = null;
+            }
+
+            Statistics = new Statistics();
+        }
+
+        public void StatisticsToFile()
         {
             try
-            {
-                using (var writer = new StreamWriter(path))
-                {
-                    writer.WriteLine(BetHandResult.GetHeader());
-
-                    foreach (var playHandResult in playHandResults)
-                    {
-                        writer.WriteLine(playHandResult.ConvertToString());
-                    }
-                }
+            {                
+                var filePath = Path.Combine(OutputFolder, "BJsim_Summary.txt");
+                var writer = new StreamWriter(filePath);
+                Statistics.WriteToFile(writer);
+                writer.Close();
             }
             catch (Exception ex)
             {
-                TraceWrapper.LogException(ex, "Cannot save results to a txt file!");
+                TraceWrapper.LogException(ex, "Cannot save statistics to a file!");
             }
         }
 
-        public static double[,] ConvertToArray(this List<BetHandResult> playHandResults)
+        public static StreamWriter InitiateResultsLog(string folder)
         {
-            int m = playHandResults.Count;
-            int n = BetHandResult.GetArrayLength();
+            try
+            {                
+                var filePath = Path.Combine(folder, "BJsim_Results.csv");
+                var writer = new StreamWriter(filePath);
+                writer.WriteLine(BetHandResult.GetHeader());
 
-            var array = new double[m, n];
+                return writer;
+            }
+            catch (Exception ex)
+            {                
+                TraceWrapper.LogException(ex, "Cannot initiate results log file!");
+                return null;
+            }
+        }
 
-            for (int i = 0; i < m; i++)
+        public void DumpToResultsLog(BetHandResult betHandResult)
+        {
+            if (ResultsWriter != null)
             {
-                var resultArray = playHandResults[i].ConvertToArray();
-
-                for (int j = 0; j < n; j++)
+                try
                 {
-                    array[i, j] = resultArray[j];
+                    ResultsWriter.WriteLine(betHandResult.ConvertToString());
+                }
+                catch (Exception ex)
+                {
+                    TraceWrapper.LogException(ex, "Cannot save results to a txt file!");
                 }
             }
+        }
 
-            return array;
+        public void CloseResultsLog()
+        {
+            if (ResultsWriter != null)
+            {
+                ResultsWriter.Close();
+            }
         }
     }
 }

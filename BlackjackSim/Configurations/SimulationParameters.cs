@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 
 namespace BlackjackSim.Configurations
 {
@@ -24,8 +25,27 @@ namespace BlackjackSim.Configurations
         public double InitialWealth { get; set; }
         public double RiskAversionCoefficient { get; set; }
         public StrategyType StrategyType { get; set; }
-        public string OutFilePath { get; set; }
+        public string OutputFolder { get; set; }
         public string StrategyConfigurationPath { get; set; }
+        public bool SaveResults { get; set; }
+
+        [XmlIgnore]
+        private string outputFolderSpecific;
+
+        [XmlIgnore]
+        public string OutputFolderSpecific
+        {
+            get
+            {
+                if (outputFolderSpecific == null)
+                {
+                    var now = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                    outputFolderSpecific = Path.Combine(OutputFolder, "BJsimResults_" + now);                    
+                }
+
+                return outputFolderSpecific;
+            }
+        }
 
         [XmlIgnore]
         private List<CountSystemBit> countSystem;
