@@ -27,7 +27,9 @@ namespace BlackjackSim.Configurations
         public StrategyType StrategyType { get; set; }
         public string OutputFolder { get; set; }
         public string StrategyConfigurationPath { get; set; }
-        public bool SaveResults { get; set; }
+        public bool SaveFullResults { get; set; }
+        public bool SaveAggregatedPal { get; set; }
+        public int AggregStatsHandCount { get; set; }
 
         [XmlIgnore]
         private string outputFolderSpecific;
@@ -40,7 +42,7 @@ namespace BlackjackSim.Configurations
                 if (outputFolderSpecific == null)
                 {
                     var now = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-                    outputFolderSpecific = Path.Combine(OutputFolder, "BJsimResults_" + now);                    
+                    outputFolderSpecific = Path.Combine(OutputFolder, "BlackjackSimResults_" + now);                    
                 }
 
                 return outputFolderSpecific;

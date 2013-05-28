@@ -20,34 +20,39 @@ namespace BlackjackSim.Results
         public double StdIba { get; private set; }        
         public int NumberOfBets { get; private set; }
 
-        private double SumIbaQuad { get; set; }
-        private double SumPalQuad { get; set; }
+        private double SumQuadIba { get; set; }
+        private double SumQuadPal { get; set; }
                 
         public void Update(BetHandResult betHandResult)
         {
             TotalInitialBet += betHandResult.BetSize;
             TotalBet += betHandResult.BetTotal;
-            TotalPal += betHandResult.Payoff;
-            
+            TotalPal += betHandResult.Payoff;            
             NumberOfBets++;
+            
+            SumQuadIba += Math.Pow(betHandResult.Payoff / betHandResult.BetSize, 2);
+            SumQuadPal += Math.Pow(betHandResult.Payoff, 2);
+        }
+
+        public void Complete()
+        {
             MeanPal = TotalPal / (double)NumberOfBets;
             InitialBetAdvantage = TotalPal / TotalInitialBet;
             TotalBetAdvantage = TotalPal / TotalBet;
 
-            SumIbaQuad += Math.Pow(betHandResult.Payoff / betHandResult.BetSize, 2);
-            SumPalQuad += Math.Pow(betHandResult.Payoff, 2);
-
             if (NumberOfBets > 1)
             {
-                StdPal = (double)NumberOfBets / (double)(NumberOfBets - 1) *
-                    (1.0 / (double)NumberOfBets * SumPalQuad - Math.Pow(MeanPal, 2));
-                StdIba = (double)NumberOfBets / (double)(NumberOfBets - 1) *
-                    (1.0 / (double)NumberOfBets * SumIbaQuad - Math.Pow(InitialBetAdvantage, 2));
+                StdPal = Math.Sqrt((double)NumberOfBets / (double)(NumberOfBets - 1) *
+                    (1.0 / (double)NumberOfBets * SumQuadPal - Math.Pow(MeanPal, 2)));
+                StdIba = Math.Sqrt((double)NumberOfBets / (double)(NumberOfBets - 1) *
+                    (1.0 / (double)NumberOfBets * SumQuadIba - Math.Pow(InitialBetAdvantage, 2)));
             }
         }
 
         public void WriteToFile(StreamWriter writer)
         {
+            Complete();
+
             try
             {
                 string line;

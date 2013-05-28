@@ -41,6 +41,32 @@ namespace BlackjackSim.Results
             }
         }
 
+        public void WriteTrueCountStatisticsToFile(StreamWriter writer)
+        {
+            try
+            {
+                var header = "TrueCount, IBA, TBA, IBA Std, OptimalProportion";
+                var delimiter = ",";
+                writer.WriteLine(header);
+
+                TrueCountStats = TrueCountStats.OrderBy(item => item.TrueCount).ToList();
+                foreach (var trueCountBetStatsBit in TrueCountStats)
+                {
+                    var betStats = trueCountBetStatsBit.BetStats;
+                    var line = String.Format("{0}" + delimiter + " {1}" + delimiter + 
+                        " {2}" + delimiter + " {3}" + delimiter + " {4}",
+                        trueCountBetStatsBit.TrueCount, betStats.InitialBetAdvantage, 
+                        betStats.TotalBetAdvantage, betStats.StdIba,
+                        betStats.InitialBetAdvantage / Math.Pow(betStats.StdIba, 2));
+                    writer.WriteLine(line);                        
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceWrapper.LogException(ex, "Cannot write true count statistics to a file!");
+            }
+        }
+
         public void WriteToFile(StreamWriter writer)
         {
             try

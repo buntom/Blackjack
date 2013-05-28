@@ -11,7 +11,7 @@
   <SimulationParameters>
     <UseCustomSeed>true</UseCustomSeed>
     <CustomSeed>10</CustomSeed>
-    <SimulationCount>10000000</SimulationCount>
+    <SimulationCount>1000000</SimulationCount>
     <TotalPacksCount>6</TotalPacksCount>
     <PenetrationThreshold>0.9</PenetrationThreshold>
     <BetSize>1</BetSize>
@@ -24,7 +24,9 @@
     <RiskAversionCoefficient>2</RiskAversionCoefficient>
     <StrategyType>INDEX</StrategyType>
     <OutputFolder>B:\_misc\BlackjackSim\_outputs\</OutputFolder>
-    <SaveResults>false</SaveResults>
+    <SaveFullResults>false</SaveFullResults>
+    <SaveAggregatedPal>false</SaveAggregatedPal>
+    <AggregStatsHandCount>1000</AggregStatsHandCount>      
     <StrategyConfigurationPath>Configuration\Strategies\Index\</StrategyConfigurationPath>
   </SimulationParameters>
 </Configuration>

@@ -62,9 +62,8 @@ namespace BlackjackSim.Simulation
             {                
                 betSize = GetBetSize(wealth, shoe);                
                 betHandResult = BetHand(betSize, shoe);
-
-                resultsUtils.DumpToResultsLog(betHandResult);
-                resultsUtils.Statistics.Update(betHandResult);
+                                
+                resultsUtils.Update(betHandResult, i + 1);
                 wealth += betHandResult.Payoff;                
 
                 if (shoe.Penetration > Configuration.SimulationParameters.PenetrationThreshold)
@@ -81,9 +80,8 @@ namespace BlackjackSim.Simulation
                 }
             }
 
-            resultsUtils.CloseResultsLog();
-            resultsUtils.StatisticsToFile();
-
+            resultsUtils.FinalizeAll();
+            
             stopwatch.Stop();
             TraceWrapper.LogInformation("Blackjack simulation: FINISHED in {0}.", stopwatch.Elapsed);
         }
