@@ -108,9 +108,9 @@ namespace BlackjackSim.Configurations
                             Debug.Assert(parts.Length == 2);
 
                             return new TrueCountBet
-                            {
-                                BetRatio = double.Parse(parts[0], CultureInfo.InvariantCulture),
-                                TrueCount = int.Parse(parts[1], CultureInfo.InvariantCulture)
+                            {                                
+                                TrueCount = int.Parse(parts[0], CultureInfo.InvariantCulture),
+                                BetRatio = double.Parse(parts[1], CultureInfo.InvariantCulture)
                             };
                         }).ToList();
                 }
@@ -122,8 +122,8 @@ namespace BlackjackSim.Configurations
                 betSizeTrueCountScale = value;
 
                 var query = betSizeTrueCountScale.Select(item => string.Format("{0}, {1}",
-                    item.BetRatio.ToString(CultureInfo.InvariantCulture),
-                    item.TrueCount.ToString(CultureInfo.InvariantCulture)));
+                    item.TrueCount.ToString(CultureInfo.InvariantCulture),
+                    item.BetRatio.ToString(CultureInfo.InvariantCulture)));
 
                 BetSizeTrueCountScaleString = string.Join("; ", query);
             }

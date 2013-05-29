@@ -8,7 +8,7 @@ using Diagnostics.Logging;
 
 namespace BlackjackSim.Results
 {
-    public class BetStats
+    public class BetStatistics
     {
         public double TotalBet { get; private set; }
         public double TotalPal { get; private set; }

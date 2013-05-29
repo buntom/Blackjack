@@ -10,12 +10,12 @@ namespace BlackjackSim.Results
 {
     public class Statistics
     {
-        public BetStats TotalStats;
+        public BetStatistics TotalStats;        
         public List<TrueCountBetStatsBit> TrueCountStats;
 
         public Statistics()
         {
-            TotalStats = new BetStats();
+            TotalStats = new BetStatistics();            
             TrueCountStats = new List<TrueCountBetStatsBit>();
         }
 
@@ -27,16 +27,16 @@ namespace BlackjackSim.Results
             var trueCountBetStatsBit = TrueCountStats.Where(item => item.TrueCount == trueCount).FirstOrDefault();
             if (trueCountBetStatsBit != null)
             {
-                trueCountBetStatsBit.BetStats.Update(betHandResult);
+                trueCountBetStatsBit.BetStatistics.Update(betHandResult);                
             }
             else
             {
                 var newTrueCountBetStatsBit = new TrueCountBetStatsBit
                 {
                     TrueCount = trueCount,
-                    BetStats = new BetStats()
+                    BetStatistics = new BetStatistics()                    
                 };
-                newTrueCountBetStatsBit.BetStats.Update(betHandResult);
+                newTrueCountBetStatsBit.BetStatistics.Update(betHandResult);
                 TrueCountStats.Add(newTrueCountBetStatsBit);
             }
         }
@@ -52,7 +52,7 @@ namespace BlackjackSim.Results
                 TrueCountStats = TrueCountStats.OrderBy(item => item.TrueCount).ToList();
                 foreach (var trueCountBetStatsBit in TrueCountStats)
                 {
-                    var betStats = trueCountBetStatsBit.BetStats;
+                    var betStats = trueCountBetStatsBit.BetStatistics;
                     var line = String.Format("{0}" + delimiter + " {1}" + delimiter + 
                         " {2}" + delimiter + " {3}" + delimiter + " {4}",
                         trueCountBetStatsBit.TrueCount, betStats.InitialBetAdvantage, 
@@ -82,7 +82,7 @@ namespace BlackjackSim.Results
                     {
                         var line = String.Format("TRUE COUNT = {0}:", trueCountBetStatsBit.TrueCount);
                         writer.WriteLine(line);                        
-                        trueCountBetStatsBit.BetStats.WriteToFile(writer);
+                        trueCountBetStatsBit.BetStatistics.WriteToFile(writer);
                         writer.WriteLine("");
                     }                    
                 }

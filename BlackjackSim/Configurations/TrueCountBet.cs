@@ -6,8 +6,8 @@ using System.Text;
 namespace BlackjackSim.Configurations
 {
     public class TrueCountBet
-    {
-        public double BetRatio { get; set; }
+    {        
         public int TrueCount { get; set; }
+        public double BetRatio { get; set; }
     }
 }

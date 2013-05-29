@@ -73,7 +73,7 @@
     <Compile Include="Configurations\TrueCountBet.cs" />
     <Compile Include="External\LogCallbackSupport.cs" />
     <Compile Include="Results\AggregStatistics.cs" />
-    <Compile Include="Results\BetStats.cs" />
+    <Compile Include="Results\BetStatistics.cs" />
     <Compile Include="Results\ResultsUtils.cs" />
     <Compile Include="Results\Statistics.cs" />
     <Compile Include="Results\TrueCountBetStatsBit.cs" />

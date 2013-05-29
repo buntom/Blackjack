@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Diagnostics.Logging;
+using BlackjackSim.Simulation;
 
 namespace BlackjackSim.Results
 {
@@ -27,10 +28,10 @@ namespace BlackjackSim.Results
             AggregatedHandsCount = aggregatedHandsCount;
         }
 
-        public void Update(double payoff)
+        public void Update(BetHandResult betHandResult)
         {
             NumberOfObservations++;
-            AggregatedPal += payoff;
+            AggregatedPal += betHandResult.Payoff;
             if (NumberOfObservations % AggregatedHandsCount == 0)
             {
                 NumberOfAggregatedObservations++;                

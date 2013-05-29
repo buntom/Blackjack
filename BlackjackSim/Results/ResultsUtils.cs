@@ -18,6 +18,7 @@ namespace BlackjackSim.Results
         public string OutputFolder;
 
         private double AggregatedPal;
+        public double Wealth { get; private set; }
 
         public ResultsUtils(Configuration configuration)
         {
@@ -41,14 +42,21 @@ namespace BlackjackSim.Results
             
             AggregStatistics = new AggregStatistics(aggregatedHandsCount);
             Statistics = new Statistics();
+            Wealth = simulationParameters.InitialWealth;
         }
 
         public void Update(BetHandResult betHandResult, int iteration)
         {            
             Statistics.Update(betHandResult);
-            AggregStatistics.Update(betHandResult.Payoff);
+            AggregStatistics.Update(betHandResult);
             DumpToResultsLog(betHandResult);
             LogAggregatedPal(betHandResult.Payoff, iteration);
+            UpdateWealth(betHandResult.Payoff);
+        }
+
+        public void UpdateWealth(double payoff)
+        {
+            Wealth += payoff;
         }
 
         public void TrueCountStatisticsToFile()

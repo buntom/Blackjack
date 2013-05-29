@@ -48,8 +48,7 @@ namespace BlackjackSim.Simulation
         public void Run()
         {
             int simulationCount = Configuration.SimulationParameters.SimulationCount;
-            var shoe = new CardShoe(Configuration, Random);
-            double wealth = Configuration.SimulationParameters.InitialWealth;
+            var shoe = new CardShoe(Configuration, Random);            
             double betSize;
             BetHandResult betHandResult;            
             int indexFinished = 0;
@@ -58,13 +57,13 @@ namespace BlackjackSim.Simulation
             var stopwatch = Stopwatch.StartNew();
             var resultsUtils = new ResultsUtils(Configuration);
 
+            TraceWrapper.LogInformation("Simulation running...");
             for (int i = 0; i < simulationCount; i++)
             {                
-                betSize = GetBetSize(wealth, shoe);                
+                betSize = GetBetSize(resultsUtils.Wealth, shoe);                
                 betHandResult = BetHand(betSize, shoe);
                                 
-                resultsUtils.Update(betHandResult, i + 1);
-                wealth += betHandResult.Payoff;                
+                resultsUtils.Update(betHandResult, i + 1);                
 
                 if (shoe.Penetration > Configuration.SimulationParameters.PenetrationThreshold)
                 {
@@ -85,7 +84,7 @@ namespace BlackjackSim.Simulation
             stopwatch.Stop();
             TraceWrapper.LogInformation("Blackjack simulation: FINISHED in {0}.", stopwatch.Elapsed);
         }
-
+        
         public double GetBetSize(double wealth, CardShoe shoe)
         {
             double betSize = 0;
@@ -105,19 +104,20 @@ namespace BlackjackSim.Simulation
                         var minTrueCountBet = SortedBetSizeTrueCountScale.First();
                         var maxTrueCountBet = SortedBetSizeTrueCountScale.Last();
                         var trueCount = shoe.Count.TrueCount;
+                        var riskAversionCoefficient = Configuration.SimulationParameters.RiskAversionCoefficient;
 
                         var trueCountBet = SortedBetSizeTrueCountScale.Where(item => item.TrueCount == trueCount).FirstOrDefault();
                         if (trueCountBet != null)
                         {
-                            betSize = wealth * trueCountBet.BetRatio * (1.0 / Configuration.SimulationParameters.RiskAversionCoefficient);
+                            betSize = wealth * trueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
                         }
                         else if (trueCount < minTrueCountBet.TrueCount)
                         {
-                            betSize = wealth * minTrueCountBet.BetRatio * (1.0 / Configuration.SimulationParameters.RiskAversionCoefficient);
+                            betSize = wealth * minTrueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
                         }
                         else if (trueCount > maxTrueCountBet.TrueCount)
                         {
-                            betSize = wealth * maxTrueCountBet.BetRatio * (1.0 / Configuration.SimulationParameters.RiskAversionCoefficient);
+                            betSize = wealth * maxTrueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
                         }
 
                         betSize = Math.Round(betSize);
