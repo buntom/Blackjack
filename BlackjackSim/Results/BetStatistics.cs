@@ -14,10 +14,11 @@ namespace BlackjackSim.Results
         public double TotalPal { get; private set; }
         public double TotalInitialBet { get; private set; }
         public double MeanPal { get; private set; }
-        public double InitialBetAdvantage { get; private set; }
-        public double TotalBetAdvantage { get; private set; }
         public double StdPal { get; private set; }
+        public double InitialBetAdvantage { get; private set; }
+        public double MeanIba { get; private set; }        
         public double StdIba { get; private set; }        
+        public double TotalBetAdvantage { get; private set; }                
         public int NumberOfBets { get; private set; }
 
         private double SumQuadIba { get; set; }
@@ -29,8 +30,10 @@ namespace BlackjackSim.Results
             TotalBet += betHandResult.BetTotal;
             TotalPal += betHandResult.Payoff;            
             NumberOfBets++;
+            var iba = betHandResult.Payoff / betHandResult.BetSize;
+            MeanIba = (MeanIba * (NumberOfBets - 1) + iba) / (double)NumberOfBets;
             
-            SumQuadIba += Math.Pow(betHandResult.Payoff / betHandResult.BetSize, 2);
+            SumQuadIba += Math.Pow(iba, 2);
             SumQuadPal += Math.Pow(betHandResult.Payoff, 2);
         }
 
@@ -45,7 +48,7 @@ namespace BlackjackSim.Results
                 StdPal = Math.Sqrt((double)NumberOfBets / (double)(NumberOfBets - 1) *
                     (1.0 / (double)NumberOfBets * SumQuadPal - Math.Pow(MeanPal, 2)));
                 StdIba = Math.Sqrt((double)NumberOfBets / (double)(NumberOfBets - 1) *
-                    (1.0 / (double)NumberOfBets * SumQuadIba - Math.Pow(InitialBetAdvantage, 2)));
+                    (1.0 / (double)NumberOfBets * SumQuadIba - Math.Pow(MeanIba, 2)));
             }
         }
 

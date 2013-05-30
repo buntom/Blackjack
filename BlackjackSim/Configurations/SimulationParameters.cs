@@ -28,7 +28,7 @@ namespace BlackjackSim.Configurations
         public string OutputFolder { get; set; }
         public string StrategyConfigurationPath { get; set; }
         public bool SaveFullResults { get; set; }
-        public bool SaveAggregatedPal { get; set; }
+        public bool SaveAggregatedData { get; set; }
         public int AggregStatsHandCount { get; set; }
 
         [XmlIgnore]

@@ -9,6 +9,8 @@ using System.Diagnostics;
 using BlackjackSim.Strategies.Basic;
 using BlackjackSim.Strategies.Index;
 using BlackjackSim.Results;
+using BlackjackSim.Serialization;
+using System.IO;
 
 namespace BlackjackSim.Simulation
 {
@@ -58,14 +60,15 @@ namespace BlackjackSim.Simulation
             var resultsUtils = new ResultsUtils(Configuration);
 
             TraceWrapper.LogInformation("Simulation running...");
+            var penetrationThreshold = Configuration.SimulationParameters.PenetrationThreshold;
             for (int i = 0; i < simulationCount; i++)
             {                
                 betSize = GetBetSize(resultsUtils.Wealth, shoe);                
                 betHandResult = BetHand(betSize, shoe);
                                 
-                resultsUtils.Update(betHandResult, i + 1);                
+                resultsUtils.Update(betHandResult);                
 
-                if (shoe.Penetration > Configuration.SimulationParameters.PenetrationThreshold)
+                if (shoe.Penetration > penetrationThreshold)
                 {
                     shoe.Reinitiate();
                 }
@@ -83,6 +86,10 @@ namespace BlackjackSim.Simulation
             
             stopwatch.Stop();
             TraceWrapper.LogInformation("Blackjack simulation: FINISHED in {0}.", stopwatch.Elapsed);
+
+            var outputFolder = Configuration.SimulationParameters.OutputFolderSpecific;
+            var filePath = Path.Combine(outputFolder, "BlackjackSim_Configuration.xml");
+            XmlUtils.SerializeToFile<Configuration>(Configuration, filePath);
         }
         
         public double GetBetSize(double wealth, CardShoe shoe)

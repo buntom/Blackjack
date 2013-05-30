@@ -12,12 +12,10 @@ namespace BlackjackSim.Results
     public class ResultsUtils
     {
         public StreamWriter ResultsWriter;
-        public StreamWriter AggregatedPalWriter;
-        public Statistics Statistics;
-        public AggregStatistics AggregStatistics;
+        public StreamWriter AggregatedDataWriter;
+        public Statistics Statistics;        
         public string OutputFolder;
 
-        private double AggregatedPal;
         public double Wealth { get; private set; }
 
         public ResultsUtils(Configuration configuration)
@@ -31,26 +29,22 @@ namespace BlackjackSim.Results
                 ResultsWriter = InitiateResultsLog(OutputFolder, "BlackjackSim_Results.csv");
                 ResultsWriter.WriteLine(BetHandResult.GetHeader());
             }
-            
+                        
             var aggregatedHandsCount = simulationParameters.AggregStatsHandCount;
-            if (simulationParameters.SaveAggregatedPal)
-            {
-                var logName = "BlackjackSim_" + String.Format("{0}", aggregatedHandsCount) +
-                    "playedHandsPal.csv";
-                AggregatedPalWriter = InitiateResultsLog(OutputFolder, logName);
-            }
-            
-            AggregStatistics = new AggregStatistics(aggregatedHandsCount);
-            Statistics = new Statistics();
+            Statistics = new Statistics(aggregatedHandsCount);
             Wealth = simulationParameters.InitialWealth;
+
+            if (simulationParameters.SaveAggregatedData)
+            {                
+                AggregatedDataWriter = InitiateResultsLog(OutputFolder, "BlackjackSim_AggregatedHandsData.csv");
+                Statistics.TotalAggregatedStats.LogHeader(AggregatedDataWriter);
+            }
         }
 
-        public void Update(BetHandResult betHandResult, int iteration)
+        public void Update(BetHandResult betHandResult)
         {            
-            Statistics.Update(betHandResult);
-            AggregStatistics.Update(betHandResult);
-            DumpToResultsLog(betHandResult);
-            LogAggregatedPal(betHandResult.Payoff, iteration);
+            Statistics.Update(betHandResult, AggregatedDataWriter);            
+            DumpToResultsLog(betHandResult);            
             UpdateWealth(betHandResult.Payoff);
         }
 
@@ -79,9 +73,7 @@ namespace BlackjackSim.Results
             try
             {                
                 var filePath = Path.Combine(OutputFolder, "BlackjackSim_Summary.txt");
-                var writer = new StreamWriter(filePath);
-                AggregStatistics.WriteToFile(writer);
-                writer.WriteLine("");
+                var writer = new StreamWriter(filePath);                
                 Statistics.WriteToFile(writer);
                 writer.Close();
             }
@@ -107,30 +99,6 @@ namespace BlackjackSim.Results
             }
         }
 
-        public void LogAggregatedPal(double payoff, int iteration)
-        {
-            if (AggregatedPalWriter != null)
-            {
-                AggregatedPal += payoff;
-                var aggregatedHandsCount = AggregStatistics.AggregatedHandsCount;
-                if (iteration % aggregatedHandsCount == 0)
-                {
-                    if (AggregatedPalWriter != null)
-                    {
-                        try
-                        {
-                            AggregatedPalWriter.WriteLine(String.Format("{0}", AggregatedPal));
-                        }
-                        catch (Exception ex)
-                        {
-                            TraceWrapper.LogException(ex, "Cannot save aggregated PaL to a txt file!");
-                        }
-                    }
-                    AggregatedPal = 0;
-                }
-            }
-        }
-
         public void DumpToResultsLog(BetHandResult betHandResult)
         {
             if (ResultsWriter != null)
@@ -146,11 +114,11 @@ namespace BlackjackSim.Results
             }
         }
 
-        public void CloseAggregatedPalLog()
+        public void CloseAggregatedDataLog()
         {
-            if (AggregatedPalWriter != null)
+            if (AggregatedDataWriter != null)
             {
-                AggregatedPalWriter.Close();
+                AggregatedDataWriter.Close();
             }
         }
 
@@ -164,7 +132,7 @@ namespace BlackjackSim.Results
 
         public void FinalizeAll()
         {
-            CloseAggregatedPalLog();
+            CloseAggregatedDataLog();
             CloseResultsLog();
             SummaryStatisticsToFile();
             TrueCountStatisticsToFile();

@@ -10,33 +10,41 @@ namespace BlackjackSim.Results
 {
     public class Statistics
     {
-        public BetStatistics TotalStats;        
+        public BetStatistics TotalBetStats;
+        public AggregatedStatistics TotalAggregatedStats;
         public List<TrueCountBetStatsBit> TrueCountStats;
 
-        public Statistics()
+        private int AggregatedHandsCount;
+
+        public Statistics(int aggregatedHandsCount)
         {
-            TotalStats = new BetStatistics();            
+            TotalBetStats = new BetStatistics();
+            TotalAggregatedStats = new AggregatedStatistics(aggregatedHandsCount);
             TrueCountStats = new List<TrueCountBetStatsBit>();
+
+            AggregatedHandsCount = aggregatedHandsCount;
         }
 
-        public void Update(BetHandResult betHandResult)
+        public void Update(BetHandResult betHandResult, StreamWriter aggregatedDataWriter)
         {
-            TotalStats.Update(betHandResult);
+            TotalBetStats.Update(betHandResult);
+            TotalAggregatedStats.UpdateAndLogData(betHandResult, aggregatedDataWriter);
 
             var trueCount = betHandResult.TrueCountBeforeBet;
             var trueCountBetStatsBit = TrueCountStats.Where(item => item.TrueCount == trueCount).FirstOrDefault();
             if (trueCountBetStatsBit != null)
             {
-                trueCountBetStatsBit.BetStatistics.Update(betHandResult);                
+                trueCountBetStatsBit.Update(betHandResult);                
             }
             else
             {
                 var newTrueCountBetStatsBit = new TrueCountBetStatsBit
                 {
                     TrueCount = trueCount,
-                    BetStatistics = new BetStatistics()                    
+                    BetStatistics = new BetStatistics(),
+                    AggregatedStatistics = new AggregatedStatistics(AggregatedHandsCount)
                 };
-                newTrueCountBetStatsBit.BetStatistics.Update(betHandResult);
+                newTrueCountBetStatsBit.Update(betHandResult);                
                 TrueCountStats.Add(newTrueCountBetStatsBit);
             }
         }
@@ -71,8 +79,11 @@ namespace BlackjackSim.Results
         {
             try
             {
-                writer.WriteLine("*** SUMMARY RESULTS ***");
-                TotalStats.WriteToFile(writer);                
+                writer.WriteLine("*** SUMMARY: AGGREGATED HANDS RESULTS ***");
+                TotalAggregatedStats.WriteToFile(writer);
+                writer.WriteLine("");
+                writer.WriteLine("*** SUMMARY: BET RESULTS ***");
+                TotalBetStats.WriteToFile(writer);                
                 if (TrueCountStats.Count > 0)
                 {
                     TrueCountStats = TrueCountStats.OrderBy(item => item.TrueCount).ToList();
@@ -80,10 +91,7 @@ namespace BlackjackSim.Results
                     writer.WriteLine("*** TRUE COUNT CONDITIONED RESULTS ***");
                     foreach (var trueCountBetStatsBit in TrueCountStats)
                     {
-                        var line = String.Format("TRUE COUNT = {0}:", trueCountBetStatsBit.TrueCount);
-                        writer.WriteLine(line);                        
-                        trueCountBetStatsBit.BetStatistics.WriteToFile(writer);
-                        writer.WriteLine("");
+                        trueCountBetStatsBit.WriteToFile(writer);
                     }                    
                 }
             }

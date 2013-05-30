@@ -52,7 +52,7 @@
     <StrategyType>INDEX</StrategyType>
     <OutputFolder>B:\_misc\BlackjackSim\_outputs\</OutputFolder>
     <SaveFullResults>false</SaveFullResults>
-    <SaveAggregatedPal>true</SaveAggregatedPal>
+    <SaveAggregatedData>true</SaveAggregatedData>
     <AggregStatsHandCount>1000</AggregStatsHandCount>      
     <StrategyConfigurationPath>Configuration\Strategies\Index\</StrategyConfigurationPath>
   </SimulationParameters>
