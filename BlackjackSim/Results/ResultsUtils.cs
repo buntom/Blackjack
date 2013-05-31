@@ -37,7 +37,7 @@ namespace BlackjackSim.Results
             if (simulationParameters.SaveAggregatedData)
             {                
                 AggregatedDataWriter = InitiateResultsLog(OutputFolder, "BlackjackSim_AggregatedHandsData.csv");
-                Statistics.TotalAggregatedStats.LogHeader(AggregatedDataWriter);
+                Statistics.TotalAggregatedStatistics.LogHeader(AggregatedDataWriter);
             }
         }
 

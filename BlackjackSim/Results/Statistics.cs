@@ -10,28 +10,28 @@ namespace BlackjackSim.Results
 {
     public class Statistics
     {
-        public BetStatistics TotalBetStats;
-        public AggregatedStatistics TotalAggregatedStats;
-        public List<TrueCountBetStatsBit> TrueCountStats;
+        public BetStatistics TotalBetStatistics;
+        public AggregatedStatistics TotalAggregatedStatistics;
+        public List<TrueCountBetStatsBit> TrueCountStatistics;
 
         private int AggregatedHandsCount;
 
         public Statistics(int aggregatedHandsCount)
         {
-            TotalBetStats = new BetStatistics();
-            TotalAggregatedStats = new AggregatedStatistics(aggregatedHandsCount);
-            TrueCountStats = new List<TrueCountBetStatsBit>();
+            TotalBetStatistics = new BetStatistics();
+            TotalAggregatedStatistics = new AggregatedStatistics(aggregatedHandsCount);
+            TrueCountStatistics = new List<TrueCountBetStatsBit>();
 
             AggregatedHandsCount = aggregatedHandsCount;
         }
 
         public void Update(BetHandResult betHandResult, StreamWriter aggregatedDataWriter)
         {
-            TotalBetStats.Update(betHandResult);
-            TotalAggregatedStats.UpdateAndLogData(betHandResult, aggregatedDataWriter);
+            TotalBetStatistics.Update(betHandResult);
+            TotalAggregatedStatistics.UpdateAndLogData(betHandResult, aggregatedDataWriter);
 
             var trueCount = betHandResult.TrueCountBeforeBet;
-            var trueCountBetStatsBit = TrueCountStats.Where(item => item.TrueCount == trueCount).FirstOrDefault();
+            var trueCountBetStatsBit = TrueCountStatistics.Where(item => item.TrueCount == trueCount).FirstOrDefault();
             if (trueCountBetStatsBit != null)
             {
                 trueCountBetStatsBit.Update(betHandResult);                
@@ -45,7 +45,7 @@ namespace BlackjackSim.Results
                     AggregatedStatistics = new AggregatedStatistics(AggregatedHandsCount)
                 };
                 newTrueCountBetStatsBit.Update(betHandResult);                
-                TrueCountStats.Add(newTrueCountBetStatsBit);
+                TrueCountStatistics.Add(newTrueCountBetStatsBit);
             }
         }
 
@@ -57,8 +57,8 @@ namespace BlackjackSim.Results
                 var delimiter = ",";
                 writer.WriteLine(header);
 
-                TrueCountStats = TrueCountStats.OrderBy(item => item.TrueCount).ToList();
-                foreach (var trueCountBetStatsBit in TrueCountStats)
+                TrueCountStatistics = TrueCountStatistics.OrderBy(item => item.TrueCount).ToList();
+                foreach (var trueCountBetStatsBit in TrueCountStatistics)
                 {
                     var betStats = trueCountBetStatsBit.BetStatistics;
                     var line = String.Format("{0}" + delimiter + " {1}" + delimiter + 
@@ -80,16 +80,16 @@ namespace BlackjackSim.Results
             try
             {
                 writer.WriteLine("*** SUMMARY: AGGREGATED HANDS RESULTS ***");
-                TotalAggregatedStats.WriteToFile(writer);
+                TotalAggregatedStatistics.WriteToFile(writer);
                 writer.WriteLine("");
                 writer.WriteLine("*** SUMMARY: BET RESULTS ***");
-                TotalBetStats.WriteToFile(writer);                
-                if (TrueCountStats.Count > 0)
+                TotalBetStatistics.WriteToFile(writer);                
+                if (TrueCountStatistics.Count > 0)
                 {
-                    TrueCountStats = TrueCountStats.OrderBy(item => item.TrueCount).ToList();
+                    TrueCountStatistics = TrueCountStatistics.OrderBy(item => item.TrueCount).ToList();
                     writer.WriteLine("");
                     writer.WriteLine("*** TRUE COUNT CONDITIONED RESULTS ***");
-                    foreach (var trueCountBetStatsBit in TrueCountStats)
+                    foreach (var trueCountBetStatsBit in TrueCountStatistics)
                     {
                         trueCountBetStatsBit.WriteToFile(writer);
                     }                    
