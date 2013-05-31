@@ -22,11 +22,7 @@ namespace BlackjackSim.Results
         private double Sum4Moment;
 
         public NormalStatistics()
-        {
-            MeanEst = Double.NaN;
-            StdEst = Double.NaN;
-            MeanEstError = Double.NaN;
-            StdEstError = Double.NaN;
+        {            
             KurtosisEst = Double.NaN;
             SkewnessEst = Double.NaN;            
         }
