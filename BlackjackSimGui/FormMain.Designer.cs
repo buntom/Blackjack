@@ -103,7 +103,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::BlackjackSimGui.Properties.Resources.Gamble_Cards_icon1;
+            this.pictureBox1.Image = global::BlackjackSimGui.Properties.Resources.playCardsIcon;
             this.pictureBox1.Location = new System.Drawing.Point(12, 11);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(115, 140);
@@ -113,7 +113,7 @@
             // 
             // buttonSelectConfig
             // 
-            this.buttonSelectConfig.BackgroundImage = global::BlackjackSimGui.Properties.Resources.file_open_icone_6882_1281;
+            this.buttonSelectConfig.BackgroundImage = global::BlackjackSimGui.Properties.Resources.fileOpenIcon;
             this.buttonSelectConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonSelectConfig.Location = new System.Drawing.Point(325, 32);
             this.buttonSelectConfig.Name = "buttonSelectConfig";

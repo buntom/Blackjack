@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Visualpharm-Icons8-Metro-Style-Gamble-Cards.ico</ApplicationIcon>
+    <ApplicationIcon>Pics\playCards.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -91,13 +91,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pics\Gamble-Cards-icon.png" />
+    <None Include="Pics\playCardsIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pics\file-open-icone-6882-128.png" />
+    <None Include="Pics\fileOpenIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Visualpharm-Icons8-Metro-Style-Gamble-Cards.ico" />
+    <Content Include="Pics\playCards.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

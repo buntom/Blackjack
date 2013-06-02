@@ -34,8 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>playCards.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -75,7 +74,8 @@
     <Content Include="Configuration\Strategies\Index\StandDecisionTableConfiguration.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pics\Icons-Land-Metro-Raster-Sport-Casino-Playing-Cards.ico" />
+    <Content Include="Pics\playCards.ico" />
+    <Content Include="playCards.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackjackSim\BlackjackSim.csproj">

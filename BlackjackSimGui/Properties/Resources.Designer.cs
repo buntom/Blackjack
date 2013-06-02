@@ -60,16 +60,16 @@ namespace BlackjackSimGui.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap file_open_icone_6882_1281 {
+        internal static System.Drawing.Bitmap fileOpenIcon {
             get {
-                object obj = ResourceManager.GetObject("file-open-icone-6882-1281", resourceCulture);
+                object obj = ResourceManager.GetObject("fileOpenIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap Gamble_Cards_icon1 {
+        internal static System.Drawing.Bitmap playCardsIcon {
             get {
-                object obj = ResourceManager.GetObject("Gamble-Cards-icon1", resourceCulture);
+                object obj = ResourceManager.GetObject("playCardsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
