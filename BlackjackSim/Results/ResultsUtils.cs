@@ -16,7 +16,10 @@ namespace BlackjackSim.Results
         public Statistics Statistics;        
         public string OutputFolder;
 
+        public double InitialWealth { get; private set; }
         public double Wealth { get; private set; }
+        public double MinWealth { get; private set; }
+        public double MaxWealth { get; private set; }
 
         public ResultsUtils(Configuration configuration)
         {
@@ -32,7 +35,11 @@ namespace BlackjackSim.Results
                         
             var aggregatedHandsCount = simulationParameters.AggregStatsHandCount;
             Statistics = new Statistics(aggregatedHandsCount);
+            
             Wealth = simulationParameters.InitialWealth;
+            InitialWealth = Wealth;
+            MinWealth = Wealth;
+            MaxWealth = Wealth;
 
             if (simulationParameters.SaveAggregatedData)
             {                
@@ -51,6 +58,8 @@ namespace BlackjackSim.Results
         public void UpdateWealth(double payoff)
         {
             Wealth += payoff;
+            MinWealth = Math.Min(MinWealth, Wealth);
+            MaxWealth = Math.Max(MaxWealth, Wealth);
         }
 
         public void TrueCountStatisticsToFile()
@@ -68,12 +77,41 @@ namespace BlackjackSim.Results
             }
         }
 
+        public void WealthStatisticsToFile(StreamWriter writer)
+        {
+            try
+            {
+                writer.WriteLine("*** WEALTH RESULTS ***");
+                string line;
+                if (Wealth <= 0)
+                {
+                    line = String.Format("Bankruptcy has occured after {0} played hands, simulation was terminated prematurely!",
+                        Statistics.TotalAggregatedStatistics.NumberOfObservations);
+                    writer.WriteLine(line);
+                }
+                line = String.Format("Initial Wealth = {0}", InitialWealth);
+                writer.WriteLine(line);
+                line = String.Format("Final Wealth = {0}", Wealth);
+                writer.WriteLine(line);
+                line = String.Format("Min Wealth = {0}", MinWealth);
+                writer.WriteLine(line);
+                line = String.Format("Max Wealth = {0}", MaxWealth);
+                writer.WriteLine(line);
+                writer.WriteLine("");
+            }
+            catch (Exception ex)
+            {
+                TraceWrapper.LogException(ex, "Cannot save wealth statistics to a file!");
+            }
+        }
+
         public void SummaryStatisticsToFile()
         {
             try
             {                
                 var filePath = Path.Combine(OutputFolder, "BlackjackSim_Summary.txt");
-                var writer = new StreamWriter(filePath);                
+                var writer = new StreamWriter(filePath);
+                WealthStatisticsToFile(writer);
                 Statistics.WriteToFile(writer);
                 writer.Close();
             }

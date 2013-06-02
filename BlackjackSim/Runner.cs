@@ -6,6 +6,7 @@ using BlackjackSim.Serialization;
 using BlackjackSim.Configurations;
 using BlackjackSim.Results;
 using BlackjackSim.Simulation;
+using BlackjackSim.External;
 
 namespace BlackjackSim
 {
@@ -19,10 +20,10 @@ namespace BlackjackSim
             Configuration = XmlUtils.DeserializeFromFile<Configuration>(configurationPath);
         }
 
-        public void Run()
+        public void Run(BlackjackSim.Simulation.Simulator.ProgressBarSetValue progressBarSetValue = null)
         {
-            var simulation = new Simulation.Simulator(Configuration);
-            simulation.Run();
+            var simulator = new Simulation.Simulator(Configuration);
+            simulator.Run(progressBarSetValue);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BlackjackSim.Configurations
     {
         public bool UseCustomSeed { get; set; }
         public int CustomSeed { get; set; }
-        public int SimulationCount { get; set; }
+        public long SimulationCount { get; set; }
         public int TotalPacksCount { get; set; }
         public double PenetrationThreshold { get; set; }
         public double BetSize { get; set; }

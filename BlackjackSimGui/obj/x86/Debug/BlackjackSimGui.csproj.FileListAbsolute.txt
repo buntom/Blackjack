@@ -1,0 +1,13 @@
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\bin\Debug\BlackjackSimGui.exe
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\bin\Debug\BlackjackSimGui.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\bin\Debug\BlackjackSim.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\bin\Debug\Diagnostics.dll
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\bin\Debug\BlackjackSim.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\bin\Debug\Diagnostics.pdb
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\ResolveAssemblyReference.cache
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\BlackjackSimGui.FormMain.resources
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\BlackjackSimGui.Properties.Resources.resources
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\GenerateResource.read.1.tlog
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\GenerateResource.write.1.tlog
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\BlackjackSimGui.exe
+B:\_misc\BlackjackSim\_myScripts\C#\Blackjack\BlackjackSimGui\obj\x86\Debug\BlackjackSimGui.pdb

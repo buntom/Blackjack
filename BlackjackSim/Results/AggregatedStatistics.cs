@@ -11,7 +11,7 @@ namespace BlackjackSim.Results
     public class AggregatedStatistics
     {
         public int AggregatedHandsCount { get; private set; }
-        public int NumberOfObservations { get; private set; }
+        public long NumberOfObservations { get; private set; }
         public int NumberOfAggregatedObservations { get; private set; }
 
         public NormalStatistics PalStatistics;

@@ -13,13 +13,15 @@ namespace BlackjackSim.Results
         public double TotalBet { get; private set; }
         public double TotalPal { get; private set; }
         public double TotalInitialBet { get; private set; }
+        public double AverageInitialBet { get; private set; }
+        public double AverageTotalBet { get; private set; }
         public double MeanPal { get; private set; }
         public double StdPal { get; private set; }
         public double InitialBetAdvantage { get; private set; }
         public double MeanIba { get; private set; }        
         public double StdIba { get; private set; }        
         public double TotalBetAdvantage { get; private set; }                
-        public int NumberOfBets { get; private set; }
+        public long NumberOfBets { get; private set; }
 
         private double SumQuadIba { get; set; }
         private double SumQuadPal { get; set; }
@@ -32,7 +34,7 @@ namespace BlackjackSim.Results
             NumberOfBets++;
             var iba = betHandResult.Payoff / betHandResult.BetSize;
             MeanIba = (MeanIba * (NumberOfBets - 1) + iba) / (double)NumberOfBets;
-            
+                        
             SumQuadIba += Math.Pow(iba, 2);
             SumQuadPal += Math.Pow(betHandResult.Payoff, 2);
         }
@@ -40,6 +42,8 @@ namespace BlackjackSim.Results
         public void Complete()
         {
             MeanPal = TotalPal / (double)NumberOfBets;
+            AverageInitialBet = TotalInitialBet / (double)NumberOfBets;
+            AverageTotalBet = TotalBet / (double)NumberOfBets;
             InitialBetAdvantage = TotalPal / TotalInitialBet;
             TotalBetAdvantage = TotalPal / TotalBet;
 
@@ -66,6 +70,10 @@ namespace BlackjackSim.Results
                 line = String.Format("Total Initial Bet = {0}", TotalInitialBet);
                 writer.WriteLine(line);
                 line = String.Format("Total Bet = {0}", TotalBet);
+                writer.WriteLine(line);
+                line = String.Format("Average Initial Bet = {0}", AverageInitialBet);
+                writer.WriteLine(line);
+                line = String.Format("Average Total Bet = {0}", AverageTotalBet);
                 writer.WriteLine(line);
                 line = String.Format("Mean PaL = {0}", MeanPal);
                 writer.WriteLine(line);

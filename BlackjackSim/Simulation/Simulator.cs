@@ -11,6 +11,7 @@ using BlackjackSim.Strategies.Index;
 using BlackjackSim.Results;
 using BlackjackSim.Serialization;
 using System.IO;
+using BlackjackSim.External;
 
 namespace BlackjackSim.Simulation
 {
@@ -47,22 +48,34 @@ namespace BlackjackSim.Simulation
             SortedBetSizeTrueCountScale = simulationParameters.BetSizeTrueCountScale.OrderBy(item => item.TrueCount).ToList();            
         }
 
-        public void Run()
-        {
-            int simulationCount = Configuration.SimulationParameters.SimulationCount;
+        public delegate void ProgressBarSetValue(int value);
+
+        public void Run(ProgressBarSetValue progressBarSetValue = null)
+        {            
+            var simulationCount = Configuration.SimulationParameters.SimulationCount;
             var shoe = new CardShoe(Configuration, Random);            
             double betSize;
             BetHandResult betHandResult;            
             int indexFinished = 0;
+            int ratioFinishedPrevious = 0;
+            int ratioFinishedRound;
             double ratioFinished;
 
             var stopwatch = Stopwatch.StartNew();
             var resultsUtils = new ResultsUtils(Configuration);
 
-            TraceWrapper.LogInformation("Simulation running...");
+            var message = String.Format("Simulating {0} of played hands...", simulationCount);
+            TraceWrapper.LogInformation(message);
             var penetrationThreshold = Configuration.SimulationParameters.PenetrationThreshold;
-            for (int i = 0; i < simulationCount; i++)
-            {                
+            for (long i = 0; i < simulationCount; i++)
+            {
+                if (resultsUtils.Wealth <= 0)
+                {
+                    message = String.Format("Bankruptcy has occured after {0} played hands, simulation terminated!", i);
+                    TraceWrapper.LogInformation(message);
+                    break;
+                }
+
                 betSize = GetBetSize(resultsUtils.Wealth, shoe);                
                 betHandResult = BetHand(betSize, shoe);
                                 
@@ -73,7 +86,13 @@ namespace BlackjackSim.Simulation
                     shoe.Reinitiate();
                 }
 
-                ratioFinished = (double)i / (double)simulationCount * 100.0;
+                ratioFinished = (double)i / (double)simulationCount * 100;
+                ratioFinishedRound = (int)Math.Round(ratioFinished);
+                if (progressBarSetValue != null && ratioFinishedRound > ratioFinishedPrevious)
+                {
+                    progressBarSetValue(ratioFinishedRound);
+                    ratioFinishedPrevious = ratioFinishedRound;
+                }
                 if ((int)Math.Truncate(ratioFinished / 5.0) > indexFinished)
                 {
                     indexFinished++;
