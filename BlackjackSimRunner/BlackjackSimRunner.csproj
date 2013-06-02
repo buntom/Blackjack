@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>playCards.ico</ApplicationIcon>
+    <ApplicationIcon>Pics\playCards.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -75,7 +75,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pics\playCards.ico" />
-    <Content Include="playCards.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackjackSim\BlackjackSim.csproj">
