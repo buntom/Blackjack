@@ -55,7 +55,7 @@
             // 
             this.textBoxConfigPath.Location = new System.Drawing.Point(133, 36);
             this.textBoxConfigPath.Name = "textBoxConfigPath";
-            this.textBoxConfigPath.Size = new System.Drawing.Size(186, 20);
+            this.textBoxConfigPath.Size = new System.Drawing.Size(183, 20);
             this.textBoxConfigPath.TabIndex = 5;
             // 
             // labelConfigPath
@@ -115,7 +115,7 @@
             // 
             this.buttonSelectConfig.BackgroundImage = global::BlackjackSimGui.Properties.Resources.fileOpenIcon;
             this.buttonSelectConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonSelectConfig.Location = new System.Drawing.Point(325, 32);
+            this.buttonSelectConfig.Location = new System.Drawing.Point(322, 32);
             this.buttonSelectConfig.Name = "buttonSelectConfig";
             this.buttonSelectConfig.Size = new System.Drawing.Size(35, 27);
             this.buttonSelectConfig.TabIndex = 0;

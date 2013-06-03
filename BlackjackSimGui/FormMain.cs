@@ -97,32 +97,24 @@ namespace BlackjackSimGui
         {            
             ResetState();
             buttonRunSimulation.Enabled = true;
-        }
+        }               
 
-        [Obsolete]
-        private void buttonRunSimulation_Click_bak(object sender, EventArgs e)
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (textBoxConfigPath.Text == "")
+            if (backgroundWorkerSimulation.IsBusy)
             {
-                MessageBox.Show("Configuration file has not been selected yet!", "BlackjackSim: Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (MessageBox.Show("Simulation running! Do you want to exit?", "BlackjackSim: Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
-
-            try
+            else
             {
-                var runner = new BlackjackSim.Runner(textBoxConfigPath.Text);
-                labelState.Text = "SIMULATING";
-                labelState.ForeColor = System.Drawing.Color.Red;
-
-                runner.Run(ProgressBarSetValue);
-
-                MessageBox.Show("Simulation finished!", "BlackjackSim: Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ResetState();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "BlackjackSim: Exception occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                e.Cancel = false;
             }
         }
     }
