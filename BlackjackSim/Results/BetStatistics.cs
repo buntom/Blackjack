@@ -20,10 +20,13 @@ namespace BlackjackSim.Results
         public double InitialBetAdvantage { get; private set; }
         public double MeanIba { get; private set; }        
         public double StdIba { get; private set; }        
-        public double TotalBetAdvantage { get; private set; }                
+        public double TotalBetAdvantage { get; private set; }
+        public double MeanTba { get; private set; }
+        public double StdTba { get; private set; }        
         public long NumberOfBets { get; private set; }
 
         private double SumQuadIba { get; set; }
+        private double SumQuadTba { get; set; }
         private double SumQuadPal { get; set; }
                 
         public void Update(BetHandResult betHandResult)
@@ -33,9 +36,12 @@ namespace BlackjackSim.Results
             TotalPal += betHandResult.Payoff;            
             NumberOfBets++;
             var iba = betHandResult.Payoff / betHandResult.BetSize;
+            var tba = betHandResult.Payoff / betHandResult.BetTotal;
             MeanIba = (MeanIba * (NumberOfBets - 1) + iba) / (double)NumberOfBets;
+            MeanTba = (MeanTba * (NumberOfBets - 1) + tba) / (double)NumberOfBets;
                         
             SumQuadIba += Math.Pow(iba, 2);
+            SumQuadTba += Math.Pow(tba, 2);
             SumQuadPal += Math.Pow(betHandResult.Payoff, 2);
         }
 
@@ -53,6 +59,8 @@ namespace BlackjackSim.Results
                     (1.0 / (double)NumberOfBets * SumQuadPal - Math.Pow(MeanPal, 2)));
                 StdIba = Math.Sqrt((double)NumberOfBets / (double)(NumberOfBets - 1) *
                     (1.0 / (double)NumberOfBets * SumQuadIba - Math.Pow(MeanIba, 2)));
+                StdTba = Math.Sqrt((double)NumberOfBets / (double)(NumberOfBets - 1) *
+                    (1.0 / (double)NumberOfBets * SumQuadTba - Math.Pow(MeanTba, 2)));
             }
         }
 
@@ -84,6 +92,8 @@ namespace BlackjackSim.Results
                 line = String.Format("STD IBA = {0}", StdIba);
                 writer.WriteLine(line);
                 line = String.Format("TBA = {0}", TotalBetAdvantage);
+                writer.WriteLine(line);
+                line = String.Format("STD TBA = {0}", StdTba);
                 writer.WriteLine(line);
             }
             catch (Exception ex)

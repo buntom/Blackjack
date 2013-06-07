@@ -66,7 +66,9 @@ namespace BlackjackSim.Simulation
             var penetrationThreshold = Configuration.SimulationParameters.PenetrationThreshold;
             for (long i = 0; i < simulationCount; i++)
             {
-                if (resultsUtils.Wealth <= 0 && Configuration.SimulationParameters.BetSizeCalculationType == BetSizeCalculationType.TRUE_COUNT_VARIABLE)
+                if (resultsUtils.Wealth <= 0 && 
+                    (Configuration.SimulationParameters.BetSizeCalculationType == BetSizeCalculationType.TRUE_COUNT_VARIABLE || 
+                    Configuration.SimulationParameters.BetSizeUnitType == BetSizeUnitType.WEALTH_PROPORTIONAL))
                 {
                     message = String.Format("Bankruptcy has occured after {0} played hands, simulation terminated!", i);
                     TraceWrapper.LogInformation(message);
