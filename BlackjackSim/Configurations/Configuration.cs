@@ -15,7 +15,7 @@ namespace BlackjackSim.Configurations
             bool isValid = true;
 
             if (SimulationParameters.TotalPacksCount <= 0 &&
-                (SimulationParameters.BetSizeType == BetSizeType.TRUE_COUNT_VARIABLE ||
+                (SimulationParameters.BetSizeCalculationType == BetSizeCalculationType.TRUE_COUNT_VARIABLE ||
                 SimulationParameters.StrategyType == StrategyType.INDEX))
             {
                 isValid = false;

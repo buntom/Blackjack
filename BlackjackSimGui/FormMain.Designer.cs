@@ -106,18 +106,18 @@
             this.pictureBox1.Image = global::BlackjackSimGui.Properties.Resources.playCardsIcon;
             this.pictureBox1.Location = new System.Drawing.Point(12, 11);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(115, 140);
+            this.pictureBox1.Size = new System.Drawing.Size(115, 135);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // buttonSelectConfig
             // 
-            this.buttonSelectConfig.BackgroundImage = global::BlackjackSimGui.Properties.Resources.fileOpenIcon;
+            this.buttonSelectConfig.BackgroundImage = global::BlackjackSimGui.Properties.Resources.blackFolderIconHi;
             this.buttonSelectConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonSelectConfig.Location = new System.Drawing.Point(322, 29);
+            this.buttonSelectConfig.Location = new System.Drawing.Point(322, 27);
             this.buttonSelectConfig.Name = "buttonSelectConfig";
-            this.buttonSelectConfig.Size = new System.Drawing.Size(41, 33);
+            this.buttonSelectConfig.Size = new System.Drawing.Size(41, 37);
             this.buttonSelectConfig.TabIndex = 0;
             this.buttonSelectConfig.Tag = "Load Configuration";
             this.buttonSelectConfig.UseVisualStyleBackColor = true;
@@ -144,8 +144,7 @@
             this.Text = "BlackjackSim";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
-            this.FormClosing += FormMain_FormClosing;
+            this.PerformLayout();            
         }
 
         #endregion

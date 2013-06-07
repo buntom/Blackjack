@@ -94,9 +94,7 @@
     <None Include="Pics\playCardsIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pics\fileOpenIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Pics\blackFolderIconHi.png" />
     <Content Include="Pics\playCards.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

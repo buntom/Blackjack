@@ -24,7 +24,9 @@ namespace BlackjackSimGui
             backgroundWorkerSimulation.ProgressChanged += backgroundWorkerSimulation_ProgressChanged;
             backgroundWorkerSimulation.RunWorkerCompleted += backgroundWorkerSimulation_RunWorkerCompleted;
             backgroundWorkerSimulation.WorkerReportsProgress = true;
-            backgroundWorkerSimulation.WorkerSupportsCancellation = true;            
+            backgroundWorkerSimulation.WorkerSupportsCancellation = true;
+
+            FormClosing += FormMain_FormClosing;
         }
 
         private void buttonSelectConfig_Click(object sender, EventArgs e)

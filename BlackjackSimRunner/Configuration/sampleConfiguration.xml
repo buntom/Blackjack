@@ -14,13 +14,17 @@
     <SimulationCount>1000000</SimulationCount>
     <TotalPacksCount>6</TotalPacksCount>
     <PenetrationThreshold>0.9</PenetrationThreshold>
-    <BetSize>1</BetSize>
-    <BetSizeMin>10</BetSizeMin>
+    <BetSizeBase>1</BetSizeBase>
+    <BetSizeMin>1</BetSizeMin>
     <BetSizeMax>500</BetSizeMax>
-    <!-- FIXED, TRUE_COUNT_VARIABLE -->
-    <BetSizeType>TRUE_COUNT_VARIABLE</BetSizeType>
+    <!-- CONSTANT, WEALTH_PROPORTIONAL -->
+    <BetSizeUnitType>CONSTANT</BetSizeUnitType>
+    <!-- FIXED, TRUE_COUNT_VARIABLE, TRUE_COUNT_BET_SPREAD -->
+    <BetSizeCalculationType>TRUE_COUNT_BET_SPREAD</BetSizeCalculationType>
+    <MinTrueCountScaleUsed>0</MinTrueCountScaleUsed>
+    <MaxTrueCountScaleUsed>7</MaxTrueCountScaleUsed>
     <BetSizeTrueCountScaleString>
-      0, 0.000001;
+      0, 0.001;
       1, 0.00447115174535222;
       2, 0.00864317432527023;
       3, 0.01260318953205;
@@ -48,7 +52,8 @@
     </BetSizeTrueCountScaleString>
     <CountSystemString>1, -1; 2, 1; 3, 1; 4, 1; 5, 1; 6, 1; 7, 0; 8, 0; 9, 0; 10, -1; 11, -1; 12, -1; 13, -1</CountSystemString>
     <InitialWealth>10000</InitialWealth>
-    <RiskAversionCoefficient>20</RiskAversionCoefficient>    
+    <RiskAversionCoefficient>20</RiskAversionCoefficient> 
+    <BetWealthProportion>0.001</BetWealthProportion>
     <!-- INDEX, BASIC -->
     <StrategyType>INDEX</StrategyType>
     <OutputFolder>B:\_misc\BlackjackSim\_outputs\</OutputFolder>

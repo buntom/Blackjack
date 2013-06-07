@@ -5,9 +5,10 @@ using System.Text;
 
 namespace BlackjackSim.Configurations
 {
-    public enum BetSizeType
+    public enum BetSizeCalculationType
     {
         FIXED,
-        TRUE_COUNT_VARIABLE
+        TRUE_COUNT_VARIABLE,
+        TRUE_COUNT_BET_SPREAD
     }
 }

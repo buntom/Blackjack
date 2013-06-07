@@ -40,14 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\BetSizeType.cs" />
+    <Compile Include="Configurations\BetSizeCalculationType.cs" />
     <Compile Include="Configurations\CountSystemBit.cs" />
     <Compile Include="Configurations\Configuration.cs" />
+    <Compile Include="Configurations\SimulationParametersUtils.cs" />
     <Compile Include="Configurations\Strategies\Basic\DecisionTypePair.cs" />
     <Compile Include="Configurations\Strategies\Basic\DecisionTypePairHelper.cs" />
     <Compile Include="Configurations\Strategies\Basic\DecisionType.cs" />
     <Compile Include="Configurations\Strategies\Basic\DecisionTypeHelper.cs" />
     <Compile Include="Configurations\GameRules.cs" />
+    <Compile Include="Configurations\BetSizeUnitType.cs" />
     <Compile Include="Configurations\Strategies\DecisionTableBase.cs" />
     <Compile Include="Configurations\Strategies\Basic\HardDecisionTable.cs" />
     <Compile Include="Configurations\Strategies\Basic\HardDecisionTableConfiguration.cs" />

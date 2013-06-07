@@ -16,14 +16,18 @@ namespace BlackjackSim.Configurations
         public long SimulationCount { get; set; }
         public int TotalPacksCount { get; set; }
         public double PenetrationThreshold { get; set; }
-        public double BetSize { get; set; }
+        public double BetSizeBase { get; set; }
         public double BetSizeMin { get; set; }
         public double BetSizeMax { get; set; }
-        public BetSizeType BetSizeType { get; set; }
+        public BetSizeUnitType BetSizeUnitType { get; set; }
+        public BetSizeCalculationType BetSizeCalculationType { get; set; }
+        public int MinTrueCountScaleUsed { get; set; }
+        public int MaxTrueCountScaleUsed { get; set; }
         public string BetSizeTrueCountScaleString { get; set; }
         public string CountSystemString { get; set; }
         public double InitialWealth { get; set; }
         public double RiskAversionCoefficient { get; set; }
+        public double BetWealthProportion { get; set; }
         public StrategyType StrategyType { get; set; }
         public string OutputFolder { get; set; }
         public string StrategyConfigurationPath { get; set; }
@@ -42,7 +46,7 @@ namespace BlackjackSim.Configurations
                 if (outputFolderSpecific == null)
                 {
                     var now = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-                    outputFolderSpecific = Path.Combine(OutputFolder, "BlackjackSimResults_" + now);                    
+                    outputFolderSpecific = Path.Combine(OutputFolder, "BlackjackSimResults_" + now);
                 }
 
                 return outputFolderSpecific;
@@ -108,11 +112,19 @@ namespace BlackjackSim.Configurations
                             Debug.Assert(parts.Length == 2);
 
                             return new TrueCountBet
-                            {                                
+                            {
                                 TrueCount = int.Parse(parts[0], CultureInfo.InvariantCulture),
                                 BetRatio = double.Parse(parts[1], CultureInfo.InvariantCulture)
                             };
                         }).ToList();
+                }
+
+                betSizeTrueCountScale = betSizeTrueCountScale.OrderBy(item => item.TrueCount).ToList();
+                betSizeTrueCountScale.RemoveAll(item => item.TrueCount < MinTrueCountScaleUsed);
+                betSizeTrueCountScale.RemoveAll(item => item.TrueCount > MaxTrueCountScaleUsed);
+                foreach (var trueCountBet in betSizeTrueCountScale)
+                {
+                    trueCountBet.BetInUnits = trueCountBet.BetRatio / betSizeTrueCountScale.First().BetRatio;
                 }
 
                 return betSizeTrueCountScale;

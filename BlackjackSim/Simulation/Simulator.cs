@@ -18,9 +18,8 @@ namespace BlackjackSim.Simulation
     public class Simulator
     {
         public readonly Configuration Configuration;
-        public IStrategy Strategy;
-        public readonly List<TrueCountBet> SortedBetSizeTrueCountScale;
-        public Random Random;
+        public IStrategy Strategy;        
+        public Random Random;        
 
         public Simulator(Configuration configuration)
         {
@@ -44,18 +43,16 @@ namespace BlackjackSim.Simulation
                     Strategy = new IndexStrategy(configuration);
                     break;
             }
-            
-            SortedBetSizeTrueCountScale = simulationParameters.BetSizeTrueCountScale.OrderBy(item => item.TrueCount).ToList();            
         }
 
         public delegate void ProgressBarSetValue(int value);
 
         public void Run(ProgressBarSetValue progressBarSetValue = null)
-        {            
+        {
             var simulationCount = Configuration.SimulationParameters.SimulationCount;
-            var shoe = new CardShoe(Configuration, Random);            
+            var shoe = new CardShoe(Configuration, Random);
             double betSize;
-            BetHandResult betHandResult;            
+            BetHandResult betHandResult;
             int indexFinished = 0;
             int ratioFinishedPrevious = 0;
             int ratioFinishedRound;
@@ -69,17 +66,17 @@ namespace BlackjackSim.Simulation
             var penetrationThreshold = Configuration.SimulationParameters.PenetrationThreshold;
             for (long i = 0; i < simulationCount; i++)
             {
-                if (resultsUtils.Wealth <= 0 && Configuration.SimulationParameters.BetSizeType == BetSizeType.TRUE_COUNT_VARIABLE)
+                if (resultsUtils.Wealth <= 0 && Configuration.SimulationParameters.BetSizeCalculationType == BetSizeCalculationType.TRUE_COUNT_VARIABLE)
                 {
                     message = String.Format("Bankruptcy has occured after {0} played hands, simulation terminated!", i);
                     TraceWrapper.LogInformation(message);
                     break;
                 }
 
-                betSize = GetBetSize(resultsUtils.Wealth, shoe);                
+                betSize = GetBetSize(resultsUtils.Wealth, shoe);
                 betHandResult = BetHand(betSize, shoe);
-                                
-                resultsUtils.Update(betHandResult);                
+
+                resultsUtils.Update(betHandResult);
 
                 if (shoe.Penetration > penetrationThreshold)
                 {
@@ -96,13 +93,13 @@ namespace BlackjackSim.Simulation
                 if ((int)Math.Truncate(ratioFinished / 5.0) > indexFinished)
                 {
                     indexFinished++;
-                    TraceWrapper.LogInformation("Blackjack simulation: Finished {0}% in {1}.", 
+                    TraceWrapper.LogInformation("Blackjack simulation: Finished {0}% in {1}.",
                         ratioFinished, stopwatch.Elapsed);
                 }
             }
 
             resultsUtils.FinalizeAll();
-            
+
             stopwatch.Stop();
             TraceWrapper.LogInformation("Blackjack simulation: FINISHED in {0}.", stopwatch.Elapsed);
 
@@ -110,49 +107,74 @@ namespace BlackjackSim.Simulation
             var filePath = Path.Combine(outputFolder, "BlackjackSim_Configuration.xml");
             XmlUtils.SerializeToFile<Configuration>(Configuration, filePath);
         }
-        
+
+        public double GetBetSizeUnit(double wealth)
+        {
+            switch (Configuration.SimulationParameters.BetSizeUnitType)
+            {
+                case BetSizeUnitType.CONSTANT:
+                    return Configuration.SimulationParameters.BetSizeBase;
+                    
+                case BetSizeUnitType.WEALTH_PROPORTIONAL:
+                    var riskAversionCoefficient = Configuration.SimulationParameters.RiskAversionCoefficient;
+                    var betWealthProportion = Configuration.SimulationParameters.BetWealthProportion;
+                    return betWealthProportion * wealth / riskAversionCoefficient;
+                
+                default:
+                    return 0;                    
+            }
+        }
+
         public double GetBetSize(double wealth, CardShoe shoe)
         {
             double betSize = 0;
-            switch (Configuration.SimulationParameters.BetSizeType)
+            switch (Configuration.SimulationParameters.BetSizeCalculationType)
             {
-                case BetSizeType.FIXED:
-                    betSize = Configuration.SimulationParameters.BetSize;
+                case BetSizeCalculationType.FIXED:
+                    betSize = Math.Round(GetBetSizeUnit(wealth));
                     break;
 
-                case BetSizeType.TRUE_COUNT_VARIABLE:
+                case BetSizeCalculationType.TRUE_COUNT_VARIABLE:
+                    if (shoe.Count == null)
+                    {
+                        throw new Exception("Count not initiated, cannot scale bet size conditionally on True Count!");
+                    }
+                    else
+                    {                        
+                        var trueCount = shoe.Count.TrueCount;
+                        var riskAversionCoefficient = Configuration.SimulationParameters.RiskAversionCoefficient;
+                        var betSizeTrueCountScale = Configuration.SimulationParameters.BetSizeTrueCountScale;
+
+                        var trueCountBet = betSizeTrueCountScale.GetTrueCountBet(trueCount);
+                        betSize = wealth * trueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
+                        
+                        betSize = Math.Round(betSize);
+                        betSize = Math.Min(Math.Max(betSize, Configuration.SimulationParameters.BetSizeMin),
+                            Configuration.SimulationParameters.BetSizeMax);
+                        break;
+                    }
+
+                case BetSizeCalculationType.TRUE_COUNT_BET_SPREAD:
                     if (shoe.Count == null)
                     {
                         throw new Exception("Count not initiated, cannot scale bet size conditionally on True Count!");
                     }
                     else
                     {
-                        var minTrueCountBet = SortedBetSizeTrueCountScale.First();
-                        var maxTrueCountBet = SortedBetSizeTrueCountScale.Last();
-                        var trueCount = shoe.Count.TrueCount;
-                        var riskAversionCoefficient = Configuration.SimulationParameters.RiskAversionCoefficient;
+                        var trueCount = shoe.Count.TrueCount;                        
+                        var betSizeTrueCountScale = Configuration.SimulationParameters.BetSizeTrueCountScale;
+                                                
+                        var trueCountBet = betSizeTrueCountScale.GetTrueCountBet(trueCount);
+                        var betInUnits = trueCountBet.BetInUnits;
+                        var unitBet = GetBetSizeUnit(wealth);
 
-                        var trueCountBet = SortedBetSizeTrueCountScale.Where(item => item.TrueCount == trueCount).FirstOrDefault();
-                        if (trueCountBet != null)
-                        {
-                            betSize = wealth * trueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
-                        }
-                        else if (trueCount < minTrueCountBet.TrueCount)
-                        {
-                            betSize = wealth * minTrueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
-                        }
-                        else if (trueCount > maxTrueCountBet.TrueCount)
-                        {
-                            betSize = wealth * maxTrueCountBet.BetRatio * (1.0 / riskAversionCoefficient);
-                        }
-
-                        betSize = Math.Round(betSize);
+                        betSize = Math.Round(betInUnits * unitBet);
                         betSize = Math.Min(Math.Max(betSize, Configuration.SimulationParameters.BetSizeMin),
                             Configuration.SimulationParameters.BetSizeMax);
                         break;
                     }
             }
-            
+
             return betSize;
         }
 
@@ -174,16 +196,16 @@ namespace BlackjackSim.Simulation
 
             // play hand                    
             var betHandResult = new BetHandResult();
-            betHandResult.TrueCountBeforeBet = trueCountBeforeBet;            
+            betHandResult.TrueCountBeforeBet = trueCountBeforeBet;
             betHandResult.BetSize = betSize;
             PlayHandOutcome playHandOutcome = PlayHand(handPlayer, handDealer, betSize, shoe, ref numberOfSplits);
-            
+
             // update bet hand results
             betHandResult.NumberOfSplits = numberOfSplits;
-            betHandResult.BetTotal = playHandOutcome.BetTotal;            
+            betHandResult.BetTotal = playHandOutcome.BetTotal;
             var payoff = PayoffHand(playHandOutcome, handDealer, shoe);
             betHandResult.Payoff = payoff;
-            
+
             // update count with the hole card revealed
             shoe.Count.Update(handDealer.Cards[1], shoe.LeftPacksCount);
 
@@ -199,9 +221,9 @@ namespace BlackjackSim.Simulation
                 trueCount = shoe.Count.TrueCount;
             }
             bool surrenderDone = false;
-            bool splitDone = numberOfSplits > 0;            
+            bool splitDone = numberOfSplits > 0;
             var playHandOutcome = new PlayHandOutcome();
-            handPlayer.BetSize = betSize;            
+            handPlayer.BetSize = betSize;
 
             // consider insurance first
             double insuranceBet = 0;
@@ -243,21 +265,21 @@ namespace BlackjackSim.Simulation
                         break;
 
                     case StrategyDecisionType.SPLIT:
-                        var splitHands = handPlayer.Split(shoe);                        
+                        var splitHands = handPlayer.Split(shoe);
                         numberOfSplits++;
-                                                
+
                         var playHandOutcomeSplit1 = PlayHand(splitHands[1], handDealer, betSize, shoe, ref numberOfSplits);
                         var playHandOutcomeSplit2 = PlayHand(splitHands[0], handDealer, betSize, shoe, ref numberOfSplits);
-                                                
-                        playHandOutcome.AddHands(playHandOutcomeSplit1.HandsPlayed);
-                        playHandOutcome.AddHands(playHandOutcomeSplit2.HandsPlayed);                        
 
-                        double betTotal = playHandOutcomeSplit1.BetTotal + playHandOutcomeSplit2.BetTotal + 
+                        playHandOutcome.AddHands(playHandOutcomeSplit1.HandsPlayed);
+                        playHandOutcome.AddHands(playHandOutcomeSplit2.HandsPlayed);
+
+                        double betTotal = playHandOutcomeSplit1.BetTotal + playHandOutcomeSplit2.BetTotal +
                             insuranceBet;
-                                                
+
                         playHandOutcome.BetTotal = betTotal;
-                        playHandOutcome.InsuranceBet = insuranceBet;                        
-                                                
+                        playHandOutcome.InsuranceBet = insuranceBet;
+
                         return playHandOutcome;
 
                     case StrategyDecisionType.SURRENDER:
@@ -268,7 +290,7 @@ namespace BlackjackSim.Simulation
                         throw new Exception("Strategy decision was not determined!");
                 }
             }
-            
+
             // return outcome            
             playHandOutcome.HandsPlayed.Add(handPlayer);
             playHandOutcome.BetTotal = betSize + insuranceBet;
@@ -293,7 +315,7 @@ namespace BlackjackSim.Simulation
         public double PayoffHand(PlayHandOutcome playHandOutcome, Hand handDealer, CardShoe shoe)
         {
             var insurancePayoff = PayoffInsurance(handDealer, playHandOutcome.InsuranceBet);
-            
+
             int handsTotal = playHandOutcome.HandsPlayed.Count;
             bool splitDone = handsTotal > 1;
             if (playHandOutcome.SurrenderDone)
@@ -308,7 +330,7 @@ namespace BlackjackSim.Simulation
 
             // dealer's hand play
             while (((handDealer.Value() <= 16) || (handDealer.Value() == 17 &&
-                handDealer.IsSoft() && !Configuration.GameRules.DealerStandsSoft17)) && 
+                handDealer.IsSoft() && !Configuration.GameRules.DealerStandsSoft17)) &&
                 !playHandOutcome.AllHandBust())
             {
                 handDealer.Hit(shoe);
@@ -324,7 +346,7 @@ namespace BlackjackSim.Simulation
                     betSize *= 2;
                 }
                 int playerTotal = handPlayed.Value();
-                
+
                 if (handPlayed.IsBlackjack() && !handDealer.IsBlackjack() && !splitDone)
                 {
                     // blackjack won

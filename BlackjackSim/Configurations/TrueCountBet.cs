@@ -9,5 +9,6 @@ namespace BlackjackSim.Configurations
     {        
         public int TrueCount { get; set; }
         public double BetRatio { get; set; }
+        public double BetInUnits { get; set; }
     }
 }

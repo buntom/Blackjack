@@ -60,9 +60,9 @@ namespace BlackjackSimGui.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap fileOpenIcon {
+        internal static System.Drawing.Bitmap blackFolderIconHi {
             get {
-                object obj = ResourceManager.GetObject("fileOpenIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("blackFolderIconHi", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
