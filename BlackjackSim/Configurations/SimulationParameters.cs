@@ -16,7 +16,9 @@ namespace BlackjackSim.Configurations
         public long SimulationCount { get; set; }
         public int TotalPacksCount { get; set; }
         public double PenetrationThreshold { get; set; }
-        public double BetSizeBase { get; set; }
+        public double UnitBetSizeBase { get; set; }
+        public double UnitBetSizeMin { get; set; }
+        public double UnitBetSizeMax { get; set; }
         public double BetSizeMin { get; set; }
         public double BetSizeMax { get; set; }
         public BetSizeUnitType BetSizeUnitType { get; set; }
@@ -28,6 +30,7 @@ namespace BlackjackSim.Configurations
         public double InitialWealth { get; set; }
         public double RiskAversionCoefficient { get; set; }
         public double BetWealthProportion { get; set; }
+        public double ConsumptionRate { get; set; }
         public StrategyType StrategyType { get; set; }
         public string OutputFolder { get; set; }
         public string StrategyConfigurationPath { get; set; }

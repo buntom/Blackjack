@@ -17,9 +17,9 @@ namespace BlackjackSim.Results
         public double SkewnessEst { get; private set; }
         public int NumberOfObservations { get; private set; }
 
-        private double Sum2Moment;
-        private double Sum3Moment;
-        private double Sum4Moment;
+        private double Moment2Est;
+        private double Moment3Est;
+        private double Moment4Est;
 
         public NormalStatistics()
         {            
@@ -30,10 +30,12 @@ namespace BlackjackSim.Results
         public void Update(double observation)
         {
             NumberOfObservations++;
-            MeanEst = (MeanEst * (NumberOfObservations - 1) + observation) / (double)NumberOfObservations;
-            Sum2Moment += Math.Pow(observation, 2);
-            Sum3Moment += Math.Pow(observation, 3);
-            Sum4Moment += Math.Pow(observation, 4);
+            var n = NumberOfObservations;
+            var aux = (double)(n - 1) / (double)n;
+            MeanEst = aux * MeanEst + observation / (double)n;            
+            Moment2Est = aux * Moment2Est + Math.Pow(observation, 2) / (double)n;
+            Moment3Est = aux * Moment3Est + Math.Pow(observation, 3) / (double)n;
+            Moment4Est = aux * Moment4Est + Math.Pow(observation, 4) / (double)n;
         }
 
         public void Complete()
@@ -41,14 +43,14 @@ namespace BlackjackSim.Results
             var n = NumberOfObservations;
             if (n > 1)
             {
-                StdEst = Math.Sqrt((double)n / (double)(n - 1) * (1.0 / (double)n * Sum2Moment - Math.Pow(MeanEst, 2)));
+                StdEst = Math.Sqrt((double)n / (double)(n - 1) * (Moment2Est - Math.Pow(MeanEst, 2)));
 
-                double aux = Sum4Moment - 4 * MeanEst * Sum3Moment + 6 * Math.Pow(MeanEst, 2) * Sum2Moment -
-                    4 * Math.Pow(MeanEst, 3) * MeanEst * n + Math.Pow(MeanEst, 4);
-                KurtosisEst = (aux / (double)n) / Math.Pow(Math.Pow(StdEst, 2) * (double)(n - 1) / (double)n, 2);
-
-                aux = Sum3Moment - 3 * Sum2Moment * MeanEst + 3 * MeanEst * n * Math.Pow(MeanEst, 2) - Math.Pow(MeanEst, 3);
-                SkewnessEst = (aux / (double)n) / Math.Pow(Math.Pow(StdEst, 2) * (double)(n - 1) / (double)n, 1.5);
+                double aux = Moment4Est - 4 * MeanEst * Moment3Est + 6 * Math.Pow(MeanEst, 2) * Moment2Est -
+                    4 * Math.Pow(MeanEst, 4) + Math.Pow(MeanEst, 4) / (double)n;
+                KurtosisEst = aux / Math.Pow(Math.Pow(StdEst, 2) * (double)(n - 1) / (double)n, 2);
+                
+                aux = Moment3Est - 3 * Moment2Est * MeanEst + 3 * Math.Pow(MeanEst, 3) - Math.Pow(MeanEst, 3) / (double)n;
+                SkewnessEst = aux / Math.Pow(Math.Pow(StdEst, 2) * (double)(n - 1) / (double)n, 1.5);                
             }
 
             MeanEstError = 1.96 / Math.Sqrt((double)n) * StdEst;

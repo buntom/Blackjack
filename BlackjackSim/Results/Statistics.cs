@@ -5,6 +5,7 @@ using System.Text;
 using BlackjackSim.Simulation;
 using System.IO;
 using Diagnostics.Logging;
+using BlackjackSim.Configurations;
 
 namespace BlackjackSim.Results
 {
@@ -12,23 +13,26 @@ namespace BlackjackSim.Results
     {
         public BetStatistics TotalBetStatistics;
         public AggregatedStatistics TotalAggregatedStatistics;
+        public WealthStatistics WealthStatistics;
         public List<TrueCountBetStatsBit> TrueCountStatistics;
 
         private int AggregatedHandsCount;
 
-        public Statistics(int aggregatedHandsCount)
+        public Statistics(Configuration configuration)
         {
-            TotalBetStatistics = new BetStatistics();
-            TotalAggregatedStatistics = new AggregatedStatistics(aggregatedHandsCount);
-            TrueCountStatistics = new List<TrueCountBetStatsBit>();
+            AggregatedHandsCount = configuration.SimulationParameters.AggregStatsHandCount;
 
-            AggregatedHandsCount = aggregatedHandsCount;
+            TotalBetStatistics = new BetStatistics();
+            TotalAggregatedStatistics = new AggregatedStatistics(AggregatedHandsCount);
+            WealthStatistics = new WealthStatistics(configuration);
+            TrueCountStatistics = new List<TrueCountBetStatsBit>();            
         }
 
         public void Update(BetHandResult betHandResult, StreamWriter aggregatedDataWriter)
         {
             TotalBetStatistics.Update(betHandResult);
             TotalAggregatedStatistics.UpdateAndLogData(betHandResult, aggregatedDataWriter);
+            WealthStatistics.Update(betHandResult);
 
             var trueCount = betHandResult.TrueCountBeforeBet;
             var trueCountBetStatsBit = TrueCountStatistics.Where(item => item.TrueCount == trueCount).FirstOrDefault();
@@ -82,6 +86,7 @@ namespace BlackjackSim.Results
                 writer.WriteLine("*** SUMMARY: AGGREGATED HANDS RESULTS ***");
                 TotalAggregatedStatistics.WriteToFile(writer);
                 writer.WriteLine("");
+
                 writer.WriteLine("*** SUMMARY: BET RESULTS ***");
                 TotalBetStatistics.WriteToFile(writer);                
                 if (TrueCountStatistics.Count > 0)

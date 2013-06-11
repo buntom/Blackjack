@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using Diagnostics.Logging;
 using BlackjackSim.Simulation;
+using BlackjackSim.Configurations;
 
 namespace BlackjackSim.Results
 {
@@ -17,11 +18,11 @@ namespace BlackjackSim.Results
         public NormalStatistics PalStatistics;
         public NormalStatistics IbaStatistics;
         public NormalStatistics TbaStatistics;
-
+        
         public double AggregatedPal { get; private set; }
         public double AggregatedTotalBet { get; private set; }
         public double AggregatedInitialBet { get; private set; }
-        
+                        
         public AggregatedStatistics(int aggregatedHandsCount)
         {
             AggregatedHandsCount = aggregatedHandsCount;
@@ -38,20 +39,25 @@ namespace BlackjackSim.Results
             AggregatedInitialBet += betHandResult.BetSize;
             if (NumberOfObservations % AggregatedHandsCount == 0)
             {
-                NumberOfAggregatedObservations++;
-                var AggregatedIba = AggregatedPal / AggregatedInitialBet;
-                var AggregatedTba = AggregatedPal / AggregatedTotalBet;
-
-                PalStatistics.Update(AggregatedPal);
-                IbaStatistics.Update(AggregatedIba);
-                TbaStatistics.Update(AggregatedTba);
-
-                LogData(writer);
-
-                AggregatedPal = 0;
-                AggregatedTotalBet = 0;
-                AggregatedInitialBet = 0;
+                FlushResetAndLogData(writer);
             }
+        }
+
+        public void FlushResetAndLogData(StreamWriter writer)
+        {
+            NumberOfAggregatedObservations++;
+            var AggregatedIba = AggregatedPal / AggregatedInitialBet;
+            var AggregatedTba = AggregatedPal / AggregatedTotalBet;
+
+            PalStatistics.Update(AggregatedPal);
+            IbaStatistics.Update(AggregatedIba);
+            TbaStatistics.Update(AggregatedTba);
+
+            LogData(writer);
+
+            AggregatedPal = 0;
+            AggregatedTotalBet = 0;
+            AggregatedInitialBet = 0;
         }
 
         public void LogHeader(StreamWriter writer)

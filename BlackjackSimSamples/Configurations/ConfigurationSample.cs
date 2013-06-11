@@ -21,7 +21,7 @@ namespace BlackjackSimSamples.Configurations
 
                 SimulationParameters = new SimulationParameters
                 {
-                    BetSizeBase = 5,
+                    UnitBetSizeBase = 5,
                     InitialWealth = 10000,
                     BetSizeTrueCountScale = new List<TrueCountBet>
                     {

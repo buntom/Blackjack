@@ -80,6 +80,7 @@
     <Compile Include="Results\ResultsUtils.cs" />
     <Compile Include="Results\Statistics.cs" />
     <Compile Include="Results\TrueCountBetStatsBit.cs" />
+    <Compile Include="Results\WealthStatistics.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="Serialization\XmlUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,9 +14,11 @@
     <SimulationCount>1000000</SimulationCount>
     <TotalPacksCount>6</TotalPacksCount>
     <PenetrationThreshold>0.9</PenetrationThreshold>
-    <BetSizeBase>1</BetSizeBase>
+    <UnitBetSizeBase>1</UnitBetSizeBase>
+    <UnitBetSizeMin>1</UnitBetSizeMin>
+    <UnitBetSizeMax>INF</UnitBetSizeMax>
     <BetSizeMin>1</BetSizeMin>
-    <BetSizeMax>500</BetSizeMax>
+    <BetSizeMax>INF</BetSizeMax>
     <!-- CONSTANT, WEALTH_PROPORTIONAL -->
     <BetSizeUnitType>WEALTH_PROPORTIONAL</BetSizeUnitType>
     <!-- FIXED, TRUE_COUNT_VARIABLE, TRUE_COUNT_BET_SPREAD -->
@@ -54,6 +56,7 @@
     <InitialWealth>10000</InitialWealth>
     <RiskAversionCoefficient>20</RiskAversionCoefficient> 
     <BetWealthProportion>0.01611</BetWealthProportion>
+    <ConsumptionRate>0.0000082</ConsumptionRate>
     <!-- INDEX, BASIC -->
     <StrategyType>INDEX</StrategyType>
     <OutputFolder>B:\_misc\BlackjackSim\_outputs\</OutputFolder>

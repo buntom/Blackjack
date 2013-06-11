@@ -57,25 +57,19 @@ namespace BlackjackSim.Simulation
             int ratioFinishedPrevious = 0;
             int ratioFinishedRound;
             double ratioFinished;
+            double wealth;
 
             var stopwatch = Stopwatch.StartNew();
             var resultsUtils = new ResultsUtils(Configuration);
 
             var message = String.Format("Simulating {0} of played hands...", simulationCount);
             TraceWrapper.LogInformation(message);
-            var penetrationThreshold = Configuration.SimulationParameters.PenetrationThreshold;
+            var penetrationThreshold = Configuration.SimulationParameters.PenetrationThreshold;            
             for (long i = 0; i < simulationCount; i++)
             {
-                if (resultsUtils.Wealth <= 0 && 
-                    (Configuration.SimulationParameters.BetSizeCalculationType == BetSizeCalculationType.TRUE_COUNT_VARIABLE || 
-                    Configuration.SimulationParameters.BetSizeUnitType == BetSizeUnitType.WEALTH_PROPORTIONAL))
-                {
-                    message = String.Format("Bankruptcy has occured after {0} played hands, simulation terminated!", i);
-                    TraceWrapper.LogInformation(message);
-                    break;
-                }
+                wealth = resultsUtils.Statistics.WealthStatistics.WealthValue;                
+                betSize = GetBetSize(wealth, shoe);
 
-                betSize = GetBetSize(resultsUtils.Wealth, shoe);
                 betHandResult = BetHand(betSize, shoe);
 
                 resultsUtils.Update(betHandResult);
@@ -112,19 +106,22 @@ namespace BlackjackSim.Simulation
 
         public double GetBetSizeUnit(double wealth)
         {
+            double unitBetSize = 0;
             switch (Configuration.SimulationParameters.BetSizeUnitType)
             {
                 case BetSizeUnitType.CONSTANT:
-                    return Configuration.SimulationParameters.BetSizeBase;
-                    
+                    unitBetSize = Configuration.SimulationParameters.UnitBetSizeBase;
+                    break;
+
                 case BetSizeUnitType.WEALTH_PROPORTIONAL:
                     var riskAversionCoefficient = Configuration.SimulationParameters.RiskAversionCoefficient;
                     var betWealthProportion = Configuration.SimulationParameters.BetWealthProportion;
-                    return betWealthProportion * wealth / riskAversionCoefficient;
-                
-                default:
-                    return 0;                    
+                    unitBetSize = betWealthProportion * wealth / riskAversionCoefficient;
+                    break;
             }
+
+            return Math.Max(Math.Min(unitBetSize, Configuration.SimulationParameters.UnitBetSizeMax),
+                Configuration.SimulationParameters.UnitBetSizeMin);
         }
 
         public double GetBetSize(double wealth, CardShoe shoe)
